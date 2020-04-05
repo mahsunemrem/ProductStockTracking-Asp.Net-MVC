@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "AddPhone";
+}
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!--begin::Portlet-->
+            <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
+                <div class="kt-portlet__head kt-portlet__head--lg">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">Telefon Ekle <small>Dikkat !</small></h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <a href="#" class="btn btn-clean kt-margin-r-10">
+                            <i class="la la-arrow-left"></i>
+                            <span class="kt-hidden-mobile">Back</span>
+                        </a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-brand">
+                                <i class="la la-check"></i>
+                                <span class="kt-hidden-mobile">Save</span>
+                            </button>
+                            <button type="button" class="btn btn-brand dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <ul class="kt-nav">
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-reload"></i>
+                                            <span class="kt-nav__link-text">Save & continue</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-power"></i>
+                                            <span class="kt-nav__link-text">Save & exit</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-edit-interface-symbol-of-pencil-tool"></i>
+                                            <span class="kt-nav__link-text">Save & edit</span>
+                                        </a>
+                                    </li>
+                                    <li class="kt-nav__item">
+                                        <a href="#" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon flaticon2-add-1"></i>
+                                            <span class="kt-nav__link-text">Save & add new</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <form class="kt-form" id="kt_form">
+                        <div class="row">
+                            <div class="col-xl-2"></div>
+                            <div class="col-xl-8">
+                                <div class="kt-section kt-section--first">
+                                    <div class="kt-section__body">
+                                        <h3 class="kt-section__title kt-section__title-lg">Customer Info:</h3>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Barkod</label>
+                                            <div class="col-9">
+                                                <input class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Marka / Model</label>
+                                            <div class="col-9">
+                                                <input class="form-control" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Tür</label>
+                                            <div class="col-9">
+                                                <select class="form-control">
+                                                    <option value="AF">Sıfır</option>
+                                                    <option value="AX">İkinci el</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Garanti Süresi</label>
+                                            <div class="col-9">
+                                                <input class="form-control" type="number" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Telefon Arızası</label>
+                                            <div class="col-9 ">
+                                                <textarea class="form-control" id="kt_maxlength_5" maxlength="8" placeholder="" rows="6"></textarea>
+                                                <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Aksesuar Durumu</label>
+                                            <div class="col-9 ">
+                                                <textarea class="form-control" id="kt_maxlength_5" maxlength="8" placeholder="" rows="3"></textarea>
+                                                <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Alış Fiyatı</label>
+                                            <div class="col-9">
+                                                <input class="form-control" type="number" value="Nick">
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                                <div class="kt-section">
+                                    <div class="kt-section__body">
+                                        <h3 class="kt-section__title kt-section__title-lg">Customer Info:</h3>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Alınan Kişi Adı</label>
+                                            <div class="col-9">
+                                                <input class="form-control" type="text" value="Nick">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Alınan Kişi Numarası</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+                                                    <input type="text" class="form-control" value="+45678967456" placeholder="Phone" aria-describedby="basic-addon1">
+                                                </div>
+                                                <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-3 ">Alınan Tarih</label>
+                                            <div class=" col-9 ">
+                                                <input type="text" class="form-control" id="m_datetimepicker_1" readonly="" placeholder="Select date">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Default Datetimepicker</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group date form_datetime form_datetime bs-datetime">
+                                                    <input type="text" size="16" class="form-control">
+                                                    <span class="input-group-addon">
+                                                        <button class="btn default date-set" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-2"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--end::Portlet-->
+        </div>
+    </div>
+</div>
+
