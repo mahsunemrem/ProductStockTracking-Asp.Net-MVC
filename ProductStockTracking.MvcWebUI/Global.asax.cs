@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ProductStockTracking.Business.DepandencyResolvers.Ninject;
+using ProductStockTracking.Core.Utilities.Mvc.Infrastructure;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -13,6 +11,7 @@ namespace ProductStockTracking.MvcWebUI
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule()));
         }
     }
 }

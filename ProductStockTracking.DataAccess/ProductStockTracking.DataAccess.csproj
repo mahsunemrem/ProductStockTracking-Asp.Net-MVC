@@ -80,6 +80,10 @@
     <Compile Include="Migrations\202004041815248_conigure1.designer.cs">
       <DependentUpon>202004041815248_conigure1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004051530384_configure3.cs" />
+    <Compile Include="Migrations\202004051530384_configure3.designer.cs">
+      <DependentUpon>202004051530384_configure3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +104,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202004041815248_conigure1.resx">
       <DependentUpon>202004041815248_conigure1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051530384_configure3.resx">
+      <DependentUpon>202004051530384_configure3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,16 +12,17 @@ namespace ProductStockTracking.Entities.Concrete
     {
         public int Id { get; set; }
         public string Barcode { get; set; }
-
+        public string BrandModel { get; set; }
         public PhoneType PhoneType;
 
         public string FaultyPhone { get; set; }
         public int GuaranteeTerm { get; set; } //garanti süresi
+        public string FaultDescription { get; set; }
         public string AccessoryStatus { get; set; }
         public float ReceivedPrice { get; set; }
         public string OldPhoneOwnersName { get; set; }
         public string OldPhoneOwnersNo { get; set; }
-        public string ReceivedDate { get; set; }
+        public DateTime ReceivedDate { get; set; } = DateTime.Now;
         public bool SaleState { get; set; }
 
         public virtual PhoneSale PhoneSale { get; set; }
