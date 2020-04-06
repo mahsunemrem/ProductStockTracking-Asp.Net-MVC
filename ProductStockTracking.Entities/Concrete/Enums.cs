@@ -11,7 +11,7 @@ namespace ProductStockTracking.Entities.Concrete
         public enum PhoneType { 
         
             Sifir,
-            İkinciEl       
+            IkinciEl      
         }
 
         public enum ProductTransaction

@@ -15,10 +15,12 @@ namespace ProductStockTracking.Business.Concrete.Managers
     public class FaultyPhoneDeliveryManager : IFaultyPhoneDeliveryService
     {
         private readonly IFaultyPhoneDeliveryDal _faultyPhoneDeliveryDal;
+        private readonly IFaultyPhoneService _faultyPhoneService;
 
-        public FaultyPhoneDeliveryManager(IFaultyPhoneDeliveryDal faultyPhoneDeliveryDal)
+        public FaultyPhoneDeliveryManager(IFaultyPhoneDeliveryDal faultyPhoneDeliveryDal, IFaultyPhoneService faultyPhoneService)
         {
             _faultyPhoneDeliveryDal = faultyPhoneDeliveryDal;
+            _faultyPhoneService = faultyPhoneService;
         }
 
         public IResult Add(FaultyPhoneDelivery faultyPhoneDelivery)
@@ -26,7 +28,10 @@ namespace ProductStockTracking.Business.Concrete.Managers
 
             try
             {
+                var result = _faultyPhoneService.GetById(faultyPhoneDelivery.FaultyPhoneId);
                 _faultyPhoneDeliveryDal.Add(faultyPhoneDelivery);
+                result.Data.DeliveryState = true;
+                _faultyPhoneService.Update(result.Data);
                 return new SuccessResult(Messages.FaultyPhoneDeliveryAdded);
             }
             catch (Exception ex)

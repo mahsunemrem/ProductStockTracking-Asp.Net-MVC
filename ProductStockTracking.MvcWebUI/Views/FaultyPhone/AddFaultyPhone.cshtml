@@ -1,0 +1,110 @@
+﻿@model ProductStockTracking.Entities.Concrete.FaultyPhone
+@{
+    ViewBag.Title = "AddFaultyPhone";
+}
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="post" action="AddFaultyPhone" class="kt-form" id="kt_form">
+                <!--begin::Portlet-->
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">Arızalı Telefon Ekle <small>Dikkat !</small></h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <a href="#" class="btn btn-clean kt-margin-r-10">
+                                <i class="la la-arrow-left"></i>
+                                <span class="kt-hidden-mobile">Back</span>
+                            </a>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-brand">
+
+                                    <span class="kt-hidden-mobile">
+                                        <i class="la la-check"></i>
+                                        Kaydet
+                                    </span>
+
+                                </button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+
+                        <div class="row">
+                            <div class="col-xl-2"></div>
+                            <div class="col-xl-8">
+                                <div class="kt-section kt-section--first">
+                                    <div class="kt-section__body">
+                                        <h3 class="kt-section__title kt-section__title-lg">Telefon Bilgileri :</h3>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Barkod</label>
+                                            <div class="col-9">
+                                                @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Marka / Model</label>
+                                            <div class="col-9">
+                                                @Html.TextBoxFor(model => model.BrandModel, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Telefon Arızası</label>
+                                            <div class="col-9 ">
+                                                @Html.TextAreaFor(model => model.FaultDescription, new { @class = "form-control", @rows = "6" })
+
+                                                <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                                    <div class="kt-section">
+                                        <div class="kt-section__body">
+                                            <h3 class="kt-section__title kt-section__title-lg">Telefon Sahibi Bilgileri :</h3>
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">Telefon Sahibinin Adı</label>
+                                                <div class="col-9">
+                                                    @Html.TextBoxFor(model => model.PhoneOwnersName, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">Telefon Sahibinin Numarası</label>
+                                                <div class="col-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+
+                                                        <input type="text" name="PhoneOwnersNo" id="PhoneOwnersNo" class="form-control" value="" placeholder="Phone" aria-describedby="basic-addon1">
+                                                    </div>
+                                                    <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-3 ">Alınan Tarih</label>
+                                                <div class=" col-9 ">
+                                                    @Html.TextBoxFor(model => model.ReceivedDate, new { @class = "form-control", type = "date" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <!--end::Portlet-->
+        </div>
+    </div>
+</div>
+
+
+

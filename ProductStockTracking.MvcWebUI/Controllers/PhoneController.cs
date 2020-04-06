@@ -37,7 +37,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 
         [HttpGet]
         public ActionResult AddPhone(int id = 0)
-        {          
+        {
             var result = _phoneService.GetById(id);
             if (result.Success && id != 0)
             {
@@ -47,7 +47,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         }
         [HttpPost]
         public ActionResult AddPhone(Phone model)
-            {
+        {
             IResult result;
             if (model.Id == 0)
             {
@@ -62,31 +62,58 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 
 
             }
-            if(result.Success)
+            if (result.Success)
                 return RedirectToAction("/PhoneList");
             return View(model);
         }
 
 
-        
+
         public ActionResult AddPhoneSale(string[] phoneSaleModel)
         {
 
-            PhoneSale phoneSale = new PhoneSale();
+            try
+            {
 
-            phoneSale.PhoneId = Convert.ToInt32(phoneSaleModel[0]);
-            phoneSale.Barcode = phoneSaleModel[1];
-            phoneSale.NewPhoneOwnersName= phoneSaleModel[2];
-            phoneSale.NewPhoneOwnersNo= phoneSaleModel[3];
-            phoneSale.DeliveryDate= Convert.ToDateTime(phoneSaleModel[4]);
-            phoneSale.DeliveryPrice=Convert.ToInt32(phoneSaleModel[5]);
+                PhoneSale phoneSale = new PhoneSale();
 
-            var result=_phoneSaleService.Add(phoneSale);
+                phoneSale.PhoneId = Convert.ToInt32(phoneSaleModel[0]);
+                phoneSale.Barcode = phoneSaleModel[1];
+                phoneSale.NewPhoneOwnersName = phoneSaleModel[2];
+                phoneSale.NewPhoneOwnersNo = phoneSaleModel[3];
+                phoneSale.DeliveryDate = Convert.ToDateTime(phoneSaleModel[4]);
+                phoneSale.DeliveryPrice = Convert.ToInt64(phoneSaleModel[5]);
 
-            var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
-            return Json(resStr);
+                var result = _phoneSaleService.Add(phoneSale);
 
-            
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                return Json(resStr);
+            }
+            catch (Exception)
+            {
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Telefon satış bilgilerini gönderirken hata oluştu ! Lütfen bilgileri eksiksiz ve doğru bir şekilde girin."));
+
+                return Json(resStr);
+            }
+
+        }
+
+        public ActionResult GetPhoneSaleInfo(int phoneId)
+        {
+            try
+            {
+                var result = _phoneSaleService.GetById(phoneId);
+
+                string[] arrayData = { result.Data.Barcode, result.Data.NewPhoneOwnersName, result.Data.NewPhoneOwnersNo.ToString(),result.Data.DeliveryPrice.ToString() ,result.Data.DeliveryDate.ToString("dd.MM.yyyy") };
+
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
+                return Json(resStr);
+            }
+            catch (Exception e)
+            {
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Telefon satış kaydı bilgileri gösterirken hata oluştu."));
+                return Json(resStr);
+            }
         }
 
     }

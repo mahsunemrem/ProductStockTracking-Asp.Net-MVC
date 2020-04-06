@@ -1,6 +1,8 @@
-﻿@model List<ProductStockTracking.Entities.Concrete.Phone>
+﻿
+@model List<ProductStockTracking.Entities.Concrete.FaultyPhone>
+
 @{
-    ViewBag.Title = "PhoneList";
+    ViewBag.Title = "FaultyPhoneList";
 }
 
 <div class="kt-portlet kt-portlet--mobile">
@@ -10,7 +12,7 @@
                 <i class="kt-font-brand flaticon2-line-chart"></i>
             </span>
             <h3 class="kt-portlet__head-title">
-                Telefon Listesi
+                Arızalı Telefon Listesi
             </h3>
         </div>
         <div class="kt-portlet__head-toolbar">
@@ -75,15 +77,11 @@
                 <tr>
                     <th>Barkod</th>
                     <th>Marka / Model</th>
-                    <th>Durum (0 / 2. El)</th>
-                    <th>Garanti Süresi</th>
-                    <th>Telefon Arızası</th>
-                    <th>Telefon Aksesuar Durumu</th>
-                    <th>Alış Fiyatı </th>
                     <th>Alınan Kişinin Adı</th>
                     <th>Alınan Kişinin Numarası</th>
+                    <th>Telefon Arızası</th>
                     <th>Alınan Tarih </th>
-                    <th>Satış Durumu</th>
+                    <th>Teslim Durumu</th>
                     <th>İşlem</th>
                 </tr>
             </thead>
@@ -93,16 +91,12 @@
                     <tr>
                         <td>@phone.Barcode</td>
                         <td>@phone.BrandModel</td>
-                        <td>@phone.PhoneType</td>
-                        <td>@phone.GuaranteeTerm</td>
+                        <td>@phone.PhoneOwnersName</td>
+                        <td>@phone.PhoneOwnersNo</td>
                         <td>@phone.FaultDescription</td>
-                        <td>@phone.AccessoryStatus</td>
-                        <td>@phone.ReceivedPrice</td>
-                        <td>@phone.OldPhoneOwnersName</td>
-                        <td>@phone.OldPhoneOwnersNo</td>
                         <td>@phone.ReceivedDate.ToString("dd.MM.yyyy")</td>
                         <td>
-                            @if (phone.SaleState)
+                            @if (phone.DeliveryState)
                             {
                                 <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded"><i class="flaticon2-check-mark"></i></span>
                             }
@@ -119,21 +113,18 @@
                                     <i class="la la-ellipsis-h"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-
-                                    @if (!phone.SaleState)
+                                    @if (!phone.DeliveryState)
                                     {
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_6" onclick="setPhoneInfo('@phone.Id','@phone.Barcode')">
-                                    <i class="la la-edit"></i> Satış Kaydı</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_6" onclick="setFaultyPhoneInfo('@phone.Id','@phone.Barcode')">
+                                    <i class="la la-edit"></i> Telefon Teslim Kaydı</a>
                                     }
 
                                     else
                                     {
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_5" onclick="phoneSaleInfoShow(@phone.Id)">
-                                            <i class="flaticon-info"></i> Satış Bilgileri
-                                        </a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_5" onclick="faultyPhoneDeliveryInfoShow(@phone.Id)">
+                                    <i class="flaticon-info"></i> Teslim Bilgileri</a>
                                     }
 
-                                    
                                     <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
                                     <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
                                 </div>
@@ -145,15 +136,13 @@
                     </tr>
                 }
 
-
+                
             </tbody>
         </table>
 
         <!--end: Datatable -->
     </div>
 </div>
-
-
 
 
 
@@ -173,44 +162,38 @@
                 <input class="form-control" hidden type="text" value="" name="Barcode2" id="Barcode2">
 
                 <div class="form-group row">
-                    <label class="col-3 col-form-label">Telefon Sahibinin Adı</label>
-                    <div class="col-9">
-                        <input class="form-control" type="text" name="NewPhoneOwnersName" id="NewPhoneOwnersName">
+                    <label class="col-form-label col-lg-3 col-sm-12">Yapılan İşlemler</label>
+                    <div class="col-9 ">
+                        @Html.TextArea("Transactions", new { @class = "form-control", @rows = "4" })
+
+                        <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-3 col-form-label">Telefon Sahibinin Numarası</label>
-                    <div class="col-9">
-                        <div class="input-group">
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
 
-                            <input type="text" name="NewPhoneOwnersNo" id="NewPhoneOwnersNo" class="form-control" value="" placeholder="Phone" aria-describedby="basic-addon1">
-                        </div>
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                    </div>
-                </div>
                 <div class="form-group row">
-                    <label class="col-3 col-form-label">Satış Tarihi</label>
+                    <label class="col-3 col-form-label">Teslim Tarihi</label>
                     <div class="col-9">
                         <input class="form-control" type="date" name="DeliveryDate" id="DeliveryDate">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-3 col-form-label">Fiyat</label>
+                    <label class="col-3 col-form-label">İşlem Ücreti</label>
                     <div class="col-9">
-                        <input class="form-control" name="DeliveryPrice" id="DeliveryPrice" type="number">
+                        <input class="form-control" name="DeliveryPrice" id="TransactionPrice" type="number">
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
-                <button type="button" class="btn btn-primary" onclick="cratePhoneSale()">Oluştur</button>
+                <button type="button" class="btn btn-primary" onclick="cratefaultyPhoneDelivery()">Oluştur</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <div class="modal fade " id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -219,10 +202,10 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Satış Kayıt Bilgileri
+                            Teslim Bilgileri
                         </h3>
                     </div>
-
+                   
                 </div>
                 <div class="kt-form kt-form--label-right">
                     <div class="kt-portlet__body">
@@ -233,39 +216,32 @@
                             </div>
                         </div>
                         <div class="form-group form-group-xs row">
-                            <label class="col-4 col-form-label">Yeni Sahibinin Adı</label>
+                            <label class="col-4 col-form-label">Yapılan İşlemler:</label>
                             <div class="col-8">
-                                <span id="newPhoneOwnersNameShow" class="form-control-plaintext kt-font-bolder"></span>
+                                <span id="transactionShow" class="form-control-plaintext kt-font-bolder"></span>
                             </div>
                         </div>
                         <div class="form-group form-group-xs row">
-                            <label class="col-4 col-form-label">Telefon Numarası</label>
-                            <div class="col-8">
-                                <span id="newPhoneOwnersNoShow" class="form-control-plaintext kt-font-bolder">
-
-                                </span>
-                            </div>
-                        </div>
-                        <div class="form-group form-group-xs row">
-                            <label class="col-4 col-form-label">Fiyatı</label>
+                            <label class="col-4 col-form-label">İşlem Ücreti:</label>
                             <div class="col-8">
                                 <span id="deliveryPriceShow" class="form-control-plaintext kt-font-bolder">
-
+                                    
                                 </span>
                             </div>
                         </div>
+
                         <div class="form-group form-group-xs row">
                             <label class="col-4 col-form-label">Teslim Tarihi:</label>
                             <div class="col-8">
                                 <span id="deliveryDateShow" class="form-control-plaintext kt-font-bolder"></span>
                             </div>
                         </div>
-
-
+                        
+                        
                     </div>
-
+                   
                 </div>
-            </div>
+            </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
             </div>
@@ -273,27 +249,30 @@
     </div>
 </div>
 
+
+
 <div id="toast-container" class="toast-top-right"><div id="toastWarnings" class="toast toast-warning hide" aria-live="polite" style=""><div id="Message" class="toast-message"></div></div></div>
+
+
 @section scripts{
     <script>
+       
 
-         function phoneSaleInfoShow(id) {
+        function faultyPhoneDeliveryInfoShow(id) {
             function toastHide() {
                 $("#toastWarnings").addClass("hide");
             }
 
             var postdata = {phoneId :id };
-            $.post("@Url.Action("GetPhoneSaleInfo","Phone")", postdata, function (res) {
+            $.post("@Url.Action("GetFaultyPhoneDeliveryInfo","FaultyPhone")", postdata, function (res) {
                
                 var resObj=jQuery.parseJSON(res)
                 if (resObj.Success) {
                                      
                     $("#barcodeShow").text(resObj.Data[0]);
-                    $("#newPhoneOwnersNameShow").text(resObj.Data[1]);
-                    $("#newPhoneOwnersNoShow").text(resObj.Data[2]);
-                    $("#deliveryPriceShow").text(resObj.Data[3]);
-                    $("#deliveryDateShow").text(resObj.Data[4]);
-
+                    $("#transactionShow").text(resObj.Data[1]);
+                    $("#deliveryPriceShow").text(resObj.Data[2]);
+                    $("#deliveryDateShow").text(resObj.Data[3]);
                    
          
                 }
@@ -314,43 +293,43 @@
                     setTimeout(toastHide, 5000);
             });
         }
-        function setPhoneInfo(Id, Barcode) {
 
+        function setFaultyPhoneInfo(Id, Barcode) {
+            debugger;
             document.getElementById("PhoneId").value = Id;
             document.getElementById("Barcode2").value = Barcode;
 
-            console.log($('#Id').val());
+
         }
 
 
-        function cratePhoneSale() {
 
-            var phoneSaleInfo = [$('#PhoneId').val(), $('#Barcode2').val(), $('#NewPhoneOwnersName').val(), $('#NewPhoneOwnersNo').val(), $('#DeliveryDate').val(), $('#DeliveryPrice').val()]
+        function cratefaultyPhoneDelivery() {
+
+            var faultyPhoneDeliveryInfo = [$('#PhoneId').val(), $('#Barcode2').val(), $('#Transactions').val(), $('#TransactionPrice').val(), $('#DeliveryDate').val()]
 
              function toastHide() {
                 $("#toastWarnings").addClass("hide");
             }
 
-
-            var postdata = {phoneSaleModel :phoneSaleInfo };
-            $.post("@Url.Action("AddPhoneSale","Phone")", postdata, function (res) {
-
-                console.log("işlem başarılı");
+            var postdata = {faultyPhoneDeliveryModel :faultyPhoneDeliveryInfo };
+            $.post("@Url.Action("AddFaultyPhoneDelivery","FaultyPhone")", postdata, function (res) {
+               
                 var resObj=jQuery.parseJSON(res)
                 if (resObj.Success) {
+                                     
 
                     document.getElementById("PhoneId").value = "";
                     document.getElementById("Barcode2").value = "";
-                    document.getElementById("NewPhoneOwnersName").value = "";
-                    document.getElementById("NewPhoneOwnersNo").value ="";
+                    document.getElementById("Transactions").value = "";
+                    document.getElementById("TransactionPrice").value ="";
                     document.getElementById("DeliveryDate").value = "";
-                    document.getElementById("DeliveryPrice").value =0;
                 location.reload();
                 }
                 else {
                     $("#toastWarnings").removeClass("hide");
                     $("#Message").text(resObj.Message);
-
+                   
                     setTimeout(toastHide, 5000);
 
 
@@ -359,11 +338,12 @@
             }).fail(function () {
                      $("#toastWarnings").removeClass("hide");
                     $("#Message").text(resObj.Message);
-
-
+                   
+                   
                     setTimeout(toastHide, 5000);
             });
         }
 
     </script>
 }
+

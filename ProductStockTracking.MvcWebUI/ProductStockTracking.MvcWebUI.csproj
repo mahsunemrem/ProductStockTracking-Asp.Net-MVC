@@ -1811,6 +1811,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\FaultyPhone\FaultyPhoneList.cshtml" />
+    <Content Include="Views\FaultyPhone\AddFaultyPhone.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1822,7 +1824,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Theme\UI\assets\plugins\general\ion-rangeslider\img\" />
-    <Folder Include="Views\FaultyPhone\" />
     <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>

@@ -64,7 +64,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var phones = _phoneDal.GetList(filter);
+                var phones = _phoneDal.GetList(filter).OrderBy(c => c.SaleState).ToList();
                 return new SuccessDataResult<List<Phone>>(phones, Messages.TransactionSuccessful);
             }
             catch (Exception ex)
