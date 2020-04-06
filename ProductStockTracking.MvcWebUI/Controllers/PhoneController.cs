@@ -13,10 +13,12 @@ namespace ProductStockTracking.MvcWebUI.Controllers
     {
 
         private readonly IPhoneService _phoneService;
+        private readonly IPhoneSaleService _phoneSaleService;
 
-        public PhoneController(IPhoneService phoneService)
+        public PhoneController(IPhoneService phoneService, IPhoneSaleService phoneSaleService)
         {
             _phoneService = phoneService;
+            _phoneSaleService = phoneSaleService;
         }
         // GET: Phone
         public ActionResult Index()
@@ -35,9 +37,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 
         [HttpGet]
         public ActionResult AddPhone(int id = 0)
-        {
-
-            
+        {          
             var result = _phoneService.GetById(id);
             if (result.Success && id != 0)
             {
@@ -66,5 +66,28 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 return RedirectToAction("/PhoneList");
             return View(model);
         }
+
+
+        
+        public ActionResult AddPhoneSale(string[] phoneSaleModel)
+        {
+
+            PhoneSale phoneSale = new PhoneSale();
+
+            phoneSale.PhoneId = Convert.ToInt32(phoneSaleModel[0]);
+            phoneSale.Barcode = phoneSaleModel[1];
+            phoneSale.NewPhoneOwnersName= phoneSaleModel[2];
+            phoneSale.NewPhoneOwnersNo= phoneSaleModel[3];
+            phoneSale.DeliveryDate= Convert.ToDateTime(phoneSaleModel[4]);
+            phoneSale.DeliveryPrice=Convert.ToInt32(phoneSaleModel[5]);
+
+            var result=_phoneSaleService.Add(phoneSale);
+
+            var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+            return Json(resStr);
+
+            
+        }
+
     }
 }

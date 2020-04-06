@@ -30,8 +30,8 @@ namespace ProductStockTracking.DataAccess.Concrete.EntityFramework.Contexts
             //modelBuilder.Configurations.Add(new CategoryMap());
 
 
-            modelBuilder.Entity<FaultyPhone>().HasOptional(c => c.FaultyPhoneDelivery).WithRequired(i => i.FaultyPhone).WillCascadeOnDelete();
-            modelBuilder.Entity<Phone>().HasOptional(c => c.PhoneSale).WithRequired(i => i.Phone).WillCascadeOnDelete();
+            modelBuilder.Entity<FaultyPhone>().HasOptional(c => c.FaultyPhoneDelivery).WithRequired(i => i.FaultyPhone);
+            modelBuilder.Entity<Phone>().HasOptional(c => c.PhoneSale).WithRequired(i => i.Phone);
             modelBuilder.Entity<Product>().HasMany(c => c.ProductBarcodes).WithRequired(i => i.Product);
             modelBuilder.Entity<Product>().HasMany(c => c.ProductMovements).WithRequired(i => i.Product);
             modelBuilder.Entity<Product>().HasRequired(c => c.ProductType).WithMany(i => i.Products).HasForeignKey(k=>k.ProductTypeId);

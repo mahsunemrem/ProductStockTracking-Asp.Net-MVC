@@ -15,17 +15,22 @@ namespace ProductStockTracking.Business.Concrete.Managers
     class PhoneSaleManager : IPhoneSaleService
     {
         private readonly IPhoneSaleDal _phoneSaleDal;
+        private readonly IPhoneService _phoneService;
 
-        public PhoneSaleManager(IPhoneSaleDal phoneSaleDal)
+        public PhoneSaleManager(IPhoneSaleDal phoneSaleDal, IPhoneService phoneService)
         {
             _phoneSaleDal = phoneSaleDal;
+            _phoneService = phoneService;
         }
 
         public IResult Add(PhoneSale phoneSale)
         {
             try
             {
+                var result=_phoneService.GetById(phoneSale.PhoneId);
                 _phoneSaleDal.Add(phoneSale);
+                result.Data.SaleState = true;
+                _phoneService.Update(result.Data);
                 return new SuccessResult(Messages.PhoneSaleAdded);
             }
             catch (Exception ex)

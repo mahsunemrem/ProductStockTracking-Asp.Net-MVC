@@ -106,12 +106,12 @@ License: You must have a valid license purchased only from themeforest(the above
     <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
         <div class="kt-header-mobile__logo">
             <a href="index.html">
-                <img alt="Logo" src="~/Theme/UI/assets/media/logos/logo-6-sm.png" />
+                <img alt="Logo" src="~/Theme/UI/assets/media/logos/logo-2-sm.png" />
             </a>
         </div>
         <div class="kt-header-mobile__toolbar">
             <div class="kt-header-mobile__toolbar-toggler kt-header-mobile__toolbar-toggler--left" id="kt_aside_mobile_toggler"><span></span></div>
-            <div class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span></span></div>
+
             <div class="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></div>
         </div>
     </div>
@@ -139,8 +139,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <ul class="kt-menu__subnav">
 
                                         <li class="kt-menu__item " aria-haspopup="true">
-                                        <a href="@Url.Action("PhoneList","Phone")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Telefon Listesi</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("AddPhone","Phone")"  class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Telefon Ekle</span></a></li>
+                                            <a href="@Url.Action("PhoneList","Phone")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Telefon Listesi</span></a>
+                                        </li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("AddPhone","Phone")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Telefon Ekle</span></a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -203,7 +204,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-header__brand kt-grid__item  " id="kt_header_brand">
                         <div class="kt-header__brand-logo">
                             <a href="index.html">
-                                <img alt="Logo" src="~/Theme/UI/assets/media/logos/logo-6.png" />
+                                <img alt="Logo" src="~/Theme/UI/assets/media/logos/logo-2.png" />
                             </a>
                         </div>
                     </div>
@@ -444,24 +445,11 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- begin:: Content -->
                     <div class="kt-container mt-5  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 
-                        <!--Begin::Dashboard 6-->
-                        <!--begin:: Widgets/Stats-->
 
-
-                        <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-                        
-                           
-                                  
-                                        @RenderBody()
-                                    
-                                
-                          
-                        </div>
+                        @RenderBody()
 
 
 
-                        <!--End::Row-->
-                        <!--End::Dashboard 6-->
                     </div>
 
                     <!-- end:: Content -->
@@ -661,6 +649,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Theme/UI/assets/js/pages/dashboard.js" type="text/javascript"></script>
 
     <!--end::Page Scripts -->
+    @RenderSection("scripts", required: false)
 </body>
 
 <!-- end::Body -->

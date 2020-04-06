@@ -21,6 +21,10 @@ namespace ProductStockTracking.Business.DepandencyResolvers.Ninject
             Bind<IPhoneService>().To<PhoneManager>().InSingletonScope(); // sadece 1 defa newlenir 
             Bind<IPhoneDal>().To<EfPhoneDal>().InSingletonScope(); // sadece 1 defa newlenir 
 
+            Bind<IPhoneSaleService>().To<PhoneSaleManager>().InSingletonScope(); // sadece 1 defa newlenir 
+            Bind<IPhoneSaleDal>().To<EfPhoneSaleDal>().InSingletonScope(); // sadece 1 defa newlenir 
+
+
             //Bind<IUserService>().To<UserManager>().InSingletonScope(); // sadece 1 defa newlenir 
             //Bind<IUserDal>().To<EfUserDal>().InSingletonScope(); // sadece 1 defa newlenir 
 

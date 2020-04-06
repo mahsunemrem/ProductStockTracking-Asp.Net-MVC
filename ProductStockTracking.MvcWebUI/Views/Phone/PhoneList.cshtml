@@ -119,7 +119,8 @@
                                     <i class="la la-ellipsis-h"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_6" onclick="setPhoneInfo('@phone.Id','@phone.Barcode')"><i class="la la-edit"></i> Satış Kaydı</a>
                                     <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
                                     <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
                                 </div>
@@ -132,10 +133,113 @@
                 }
 
 
-                </tbody>
+            </tbody>
         </table>
 
         <!--end: Datatable -->
     </div>
 </div>
 
+
+
+
+
+<div class="modal fade " id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Telefon Satış Kaydı</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <input class="form-control"  hidden type="text" value="" name="PhoneId" id="PhoneId">
+                <input class="form-control" hidden  type="text" value="" name="Barcode2" id="Barcode2">
+
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Telefon Sahibinin Adı</label>
+                    <div class="col-9">
+                        <input class="form-control" type="text" name="NewPhoneOwnersName" id="NewPhoneOwnersName">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Telefon Sahibinin Numarası</label>
+                    <div class="col-9">
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+
+                            <input type="text" name="NewPhoneOwnersNo" id="NewPhoneOwnersNo" class="form-control" value="" placeholder="Phone" aria-describedby="basic-addon1">
+                        </div>
+                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Satış Tarihi</label>
+                    <div class="col-9">
+                        <input class="form-control" type="date" name="DeliveryDate" id="DeliveryDate">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 col-form-label">Fiyat</label>
+                    <div class="col-9">
+                        <input class="form-control" name="DeliveryPrice" id="DeliveryPrice" type="number">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" onclick="cratePhoneSale()">Oluştur</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+
+        function setPhoneInfo(Id, Barcode) {
+            
+            document.getElementById("PhoneId").value = Id;
+            document.getElementById("Barcode2").value = Barcode;
+
+            console.log($('#Id').val());
+        }
+
+
+        function cratePhoneSale() {
+
+            var phoneSaleInfo = [$('#PhoneId').val(), $('#Barcode2').val(), $('#NewPhoneOwnersName').val(), $('#NewPhoneOwnersNo').val(), $('#DeliveryDate').val(), $('#DeliveryPrice').val()]
+
+            console.log(phoneSaleInfo);
+          
+            var postdata = {phoneSaleModel :phoneSaleInfo };
+            $.post("@Url.Action("AddPhoneSale","Phone")", postdata, function (res) {
+
+                console.log("işlem başarılı");
+                var resObj=jQuery.parseJSON(res)
+                if (resObj.Success) {
+                    alert('İşlem Başarılı.');
+                    debugger;
+
+                    document.getElementById("PhoneId").value = "";
+                    document.getElementById("Barcode2").value = "";
+                    document.getElementById("NewPhoneOwnersName").value = "";
+                    document.getElementById("NewPhoneOwnersNo").value ="";
+                    document.getElementById("DeliveryDate").value = "";
+                    document.getElementById("DeliveryPrice").value =0;
+                location.reload();
+                }
+                else {
+                    alert('İşlem Başarısız.');
+                }
+            }).fail(function () {
+                     alert('İşlem Başarısız.');
+            });
+        }
+
+    </script>
+    }
