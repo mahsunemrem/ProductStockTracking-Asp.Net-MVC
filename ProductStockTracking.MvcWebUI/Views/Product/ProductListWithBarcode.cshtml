@@ -1,8 +1,6 @@
-﻿
-@model List<ProductStockTracking.Entities.Concrete.FaultyPhone>
-
+﻿@model List<ProductStockTracking.Entities.Concrete.Product>
 @{
-    ViewBag.Title = "FaultyPhoneList";
+    ViewBag.Title = "ProductListWithBarcode";
 }
 
 <div class="kt-portlet kt-portlet--mobile">
@@ -12,7 +10,7 @@
                 <i class="kt-font-brand flaticon2-line-chart"></i>
             </span>
             <h3 class="kt-portlet__head-title">
-                Arızalı Telefon Listesi 
+                Arızalı Telefon Listesi
             </h3>
         </div>
         <div class="kt-portlet__head-toolbar">
@@ -75,64 +73,25 @@
         <table class="table table-striped- table-bordered table-hover table-checkable" id="kt_table_1">
             <thead>
                 <tr>
-                    <th>Barkod</th>
+                    <th>Ürün Tipi</th>
                     <th>Marka / Model</th>
-                    <th>Alınan Kişinin Adı</th>
-                    <th>Alınan Kişinin Numarası</th>
-                    <th>Telefon Arızası</th>
-                    <th>Alınan Tarih </th>
-                    <th>Teslim Durumu</th>
+                    <th>Tip</th>
+                    <th>Özellikleri</th>
                     <th>İşlem</th>
+
                 </tr>
             </thead>
             <tbody>
-                @foreach (var phone in Model)
+                @foreach (var product in Model)
                 {
                     <tr>
-                        <td>@phone.Barcode</td>
-                        <td>@phone.BrandModel</td>
-                        <td>@phone.PhoneOwnersName</td>
-                        <td>@phone.PhoneOwnersNo</td>
-                        <td>@phone.FaultDescription</td>
-                        <td>@phone.ReceivedDate.ToString("dd.MM.yyyy")</td>
-                        <td>
-                            @if (phone.DeliveryState)
-                            {
-                                <span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded"><i class="flaticon2-check-mark"></i></span>
-                            }
-
-                            else
-                            {
-                                <span class="kt-badge kt-badge--info kt-badge--inline"><i class="flaticon2-cancel-music"></i></span>
-                            }
-
-                        </td>
+                        <td>@product.ProductType.Type</td>
+                        <td>@product.BrandModel</td>
+                        <td>@product.Type</td>
+                        <td>@product.Features</td>
                         <td nowrap="">
-                            <div class="dropdown">
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="la la-ellipsis-h"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    @if (!phone.DeliveryState)
-                                    {
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_6" onclick="setFaultyPhoneInfo('@phone.Id','@phone.Barcode')">
-                                            <i class="la la-edit"></i> Telefon Teslim Kaydı
-                                        </a>
-                                    }
-
-                                    else
-                                    {
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#kt_modal_5" onclick="faultyPhoneDeliveryInfoShow(@phone.Id)">
-                                            <i class="flaticon-info"></i> Teslim Bilgileri
-                                        </a>
-                                    }
-
-                                    <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                    <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                                <i class="la la-edit"></i>
+                            <a href="@Url.Action("AddProduct", "Product", new { id = (int)product.Id})" class="btn btn-danger kt-subheader__btn-options" >
+                                Düzenle
                             </a>
                         </td>
                     </tr>
@@ -148,56 +107,7 @@
 
 
 
-<div class="modal fade " id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 17px;" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Telefon Satış Kaydı</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-
-                <input class="form-control" hidden type="text" value="" name="PhoneId" id="PhoneId">
-                <input class="form-control" hidden type="text" value="" name="Barcode2" id="Barcode2">
-
-                <div class="form-group row">
-                    <label class="col-form-label col-lg-3 col-sm-12">Yapılan İşlemler</label>
-                    <div class="col-9 ">
-                        @Html.TextArea("Transactions", new { @class = "form-control", @rows = "4" })
-
-                        <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label class="col-3 col-form-label">Teslim Tarihi</label>
-                    <div class="col-9">
-                        <input class="form-control" type="date" name="DeliveryDate" id="DeliveryDate">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-3 col-form-label">İşlem Ücreti</label>
-                    <div class="col-9">
-                        <input class="form-control" name="DeliveryPrice" id="TransactionPrice" type="number">
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
-                <button type="button" class="btn btn-primary" onclick="cratefaultyPhoneDelivery()">Oluştur</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="modal fade " id="kt_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 17px;" aria-modal="true">
+@*<div class="modal fade " id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="kt-portlet">
@@ -214,19 +124,19 @@
                         <div class="form-group form-group-xs row">
                             <label class="col-4 col-form-label">Barkod:</label>
                             <div class="col-8">
-                                <span id="barcodeShow" class="form-control-plaintext kt-font-bolder"></span>
+                                <span id="ProductTypeInfo" class="form-control-plaintext kt-font-bolder"></span>
                             </div>
                         </div>
                         <div class="form-group form-group-xs row">
                             <label class="col-4 col-form-label">Yapılan İşlemler:</label>
                             <div class="col-8">
-                                <span id="transactionShow" class="form-control-plaintext kt-font-bolder"></span>
+                                <span id="ModelInfo" class="form-control-plaintext kt-font-bolder"></span>
                             </div>
                         </div>
                         <div class="form-group form-group-xs row">
                             <label class="col-4 col-form-label">İşlem Ücreti:</label>
                             <div class="col-8">
-                                <span id="deliveryPriceShow" class="form-control-plaintext kt-font-bolder">
+                                <span id="TypeInfo" class="form-control-plaintext kt-font-bolder">
 
                                 </span>
                             </div>
@@ -235,10 +145,11 @@
                         <div class="form-group form-group-xs row">
                             <label class="col-4 col-form-label">Teslim Tarihi:</label>
                             <div class="col-8">
-                                <span id="deliveryDateShow" class="form-control-plaintext kt-font-bolder"></span>
+                                <span id="FeaturesInfo" class="form-control-plaintext kt-font-bolder"></span>
                             </div>
                         </div>
 
+                        <hr />
 
                     </div>
 
@@ -249,32 +160,27 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
-
-
-<div id="toast-container" class="toast-top-right"><div id="toastWarnings" class="toast toast-warning hide" aria-live="polite" style=""><div id="Message" class="toast-message"></div></div></div>
-
-
-@section scripts{
+@*@section scripts{
     <script>
 
 
-        function faultyPhoneDeliveryInfoShow(id) {
-            function toastHide() {
-                $("#toastWarnings").addClass("hide");
-            }
+        function productInfoShow(id) {
 
-            var postdata = {phoneId :id };
-            $.post("@Url.Action("GetFaultyPhoneDeliveryInfo","FaultyPhone")", postdata, function (res) {
+            var postdata = {productId :id };
+            $.post("@Url.Action("GetProductInfo","Product")", postdata, function (res) {
 
                 var resObj=jQuery.parseJSON(res)
                 if (resObj.Success) {
 
-                    $("#barcodeShow").text(resObj.Data[0]);
-                    $("#transactionShow").text(resObj.Data[1]);
-                    $("#deliveryPriceShow").text(resObj.Data[2]);
-                    $("#deliveryDateShow").text(resObj.Data[3]);
+                    
+
+                    $("#ProductTypeInfo").text(resObj.Data.ProductTypeInfo);
+                    $("#ModelInfo").text(resObj.Data.ModelInfo);
+                    $("#TypeInfo").text(resObj.Data.TypeInfo);
+                    $("#FeaturesInfo").text(resObj.Data.FeaturesInfo);
+                    //$("#deliveryDateShow").text(resObj.Data.ProductBarcodesInfo);
 
 
                 }
@@ -351,7 +257,6 @@
         }
 
 
-     
-    </script>
-}
 
+    </script>
+}*@

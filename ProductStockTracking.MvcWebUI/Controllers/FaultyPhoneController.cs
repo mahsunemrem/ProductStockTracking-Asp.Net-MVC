@@ -48,21 +48,16 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         public ActionResult AddFaultyPhone(FaultyPhone model)
         {
             IResult result;
-            if (model.Id == 0)
-            {
-
+            if (model.Id == 0)           
                 result = _faultyPhoneService.Add(model);
-
-            }
-
             else
-            {
                 result = _faultyPhoneService.Update(model);
-
-
-            }
             if (result.Success)
                 return RedirectToAction("/FaultyPhoneList");
+            
+            ViewBag.ErrorMessage = result.Message;
+
+
             return View(model);
         }
 
@@ -105,7 +100,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
                 return Json(resStr);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Telefon teslim kaydı bilgileri gösterirken hata oluştu."));
                 return Json(resStr);

@@ -107,4 +107,37 @@
 </div>
 
 
+@section scripts{
+    
+  
 
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script>
+            function message() {
+                swal("İşlem Başarısız!", "@ViewBag.ErrorMessage", "error");
+
+            }
+            message();
+
+
+        </script>
+    }
+
+    else
+    {
+        <script>
+
+            function message() {
+
+            }
+
+            message();
+
+
+        </script>
+    }
+
+
+
+}

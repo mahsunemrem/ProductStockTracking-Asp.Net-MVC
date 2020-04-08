@@ -20,7 +20,7 @@ namespace ProductStockTracking.Entities.Concrete
         public int ProductTypeId { get; set; }
         public virtual ProductType ProductType { get; set; }
 
-        public virtual List<ProductBarcode> ProductBarcodes { get; set; }
-        public virtual List<ProductMovement> ProductMovements { get; set; }
+        public virtual ICollection<ProductBarcode> ProductBarcodes { get; set; }
+        public virtual ICollection<ProductMovement> ProductMovements { get; set; }
     }
 }

@@ -20,7 +20,7 @@
                             </a>
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-brand">
-                                    
+
                                     <span class="kt-hidden-mobile">
                                         <i class="la la-check"></i>
                                         Kaydet
@@ -33,98 +33,98 @@
                         </div>
                     </div>
                     <div class="kt-portlet__body">
-                        
-                            <div class="row">
-                                <div class="col-xl-2"></div>
-                                <div class="col-xl-8">
-                                    <div class="kt-section kt-section--first">
-                                        <div class="kt-section__body">
-                                            <h3 class="kt-section__title kt-section__title-lg">Telefon Bilgileri :</h3>
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Barkod</label>
-                                                <div class="col-9">
-                                                    @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
 
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Marka / Model</label>
-                                                <div class="col-9">
-                                                    @Html.TextBoxFor(model => model.BrandModel, new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Tür</label>
-                                                <div class="col-9">
-                                                    @Html.EnumDropDownListFor(model => model.PhoneType ,htmlAttributes: new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Garanti Süresi</label>
-                                                <div class="col-9">
-                                                    @Html.TextBoxFor(model => model.GuaranteeTerm, new { @class = "form-control", type = "number" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">Telefon Arızası</label>
-                                                <div class="col-9 ">
-                                                    @Html.TextAreaFor(model => model.FaultDescription, new { @class = "form-control", @rows = "6" })
+                        <div class="row">
+                            <div class="col-xl-2"></div>
+                            <div class="col-xl-8">
+                                <div class="kt-section kt-section--first">
+                                    <div class="kt-section__body">
+                                        <h3 class="kt-section__title kt-section__title-lg">Telefon Bilgileri :</h3>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Barkod</label>
+                                            <div class="col-9">
+                                                @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
 
-                                                    <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">Aksesuar Durumu</label>
-
-                                                <div class="col-9 ">
-                                                    @Html.TextAreaFor(model => model.AccessoryStatus, new { @class = "form-control", @rows = "3" })
-                                                    <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Alış Fiyatı</label>
-                                                <div class="col-9">
-                                                    @Html.TextBoxFor(model => model.GuaranteeTerm, new { @class = "form-control", type = "number" })
-                                                </div>
                                             </div>
                                         </div>
-                                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                                        <div class="kt-section">
-                                            <div class="kt-section__body">
-                                                <h3 class="kt-section__title kt-section__title-lg">Telefon Sahibi Bilgileri :</h3>
-                                                <div class="form-group row">
-                                                    <label class="col-3 col-form-label">Alınan Kişi Adı</label>
-                                                    <div class="col-9">
-                                                        @Html.TextBoxFor(model => model.OldPhoneOwnersName, new { @class = "form-control" })
-                                                    </div>
-                                                </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Marka / Model</label>
+                                            <div class="col-9">
+                                                @Html.TextBoxFor(model => model.BrandModel, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Tür</label>
+                                            <div class="col-9">
+                                                @Html.EnumDropDownListFor(model => model.PhoneType, htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Garanti Süresi</label>
+                                            <div class="col-9">
+                                                @Html.TextBoxFor(model => model.GuaranteeTerm, new { @class = "form-control", type = "number" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Telefon Arızası</label>
+                                            <div class="col-9 ">
+                                                @Html.TextAreaFor(model => model.FaultDescription, new { @class = "form-control", @rows = "6" })
 
-                                                <div class="form-group row">
-                                                    <label class="col-3 col-form-label">Alınan Kişi Numarası</label>
-                                                    <div class="col-9">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+                                                <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3 col-sm-12">Aksesuar Durumu</label>
 
-                                                            <input type="text" name="OldPhoneOwnersNo" id="OldPhoneOwnersNo" class="form-control" value="" placeholder="Phone" aria-describedby="basic-addon1">
-                                                        </div>
-                                                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-3 ">Alınan Tarih</label>
-                                                    <div class=" col-9 ">
-                                                        @Html.TextBoxFor(model => model.ReceivedDate, new { @class = "form-control", type = "date" })
-                                                    </div>
-                                                </div>
+                                            <div class="col-9 ">
+                                                @Html.TextAreaFor(model => model.AccessoryStatus, new { @class = "form-control", @rows = "3" })
+                                                <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
+                                            </div>
 
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label">Alış Fiyatı</label>
+                                            <div class="col-9">
+                                                @Html.TextBoxFor(model => model.GuaranteeTerm, new { @class = "form-control", type = "number" })
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
+                                    <div class="kt-section">
+                                        <div class="kt-section__body">
+                                            <h3 class="kt-section__title kt-section__title-lg">Telefon Sahibi Bilgileri :</h3>
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">Alınan Kişi Adı</label>
+                                                <div class="col-9">
+                                                    @Html.TextBoxFor(model => model.OldPhoneOwnersName, new { @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">Alınan Kişi Numarası</label>
+                                                <div class="col-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
+
+                                                        <input type="text" name="OldPhoneOwnersNo" id="OldPhoneOwnersNo" class="form-control" value="" placeholder="Phone" aria-describedby="basic-addon1">
+                                                    </div>
+                                                    <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-3 ">Alınan Tarih</label>
+                                                <div class=" col-9 ">
+                                                    @Html.TextBoxFor(model => model.ReceivedDate, new { @class = "form-control", type = "date" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-xl-2"></div>
                             </div>
+                            <div class="col-xl-2"></div>
+                        </div>
 
                     </div>
                 </div>
@@ -134,3 +134,37 @@
     </div>
 </div>
 
+@section scripts{
+
+
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script>
+            function message() {
+                swal("İşlem Başarısız!", "@ViewBag.ErrorMessage", "error");
+
+            }
+            message();
+
+
+        </script>
+    }
+
+    else
+    {
+        <script>
+
+            function message() {
+
+            }
+
+            message();
+
+
+        </script>
+    }
+
+
+
+}

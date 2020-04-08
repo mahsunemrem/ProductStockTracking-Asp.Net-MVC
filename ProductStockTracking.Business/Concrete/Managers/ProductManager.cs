@@ -1,5 +1,6 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.Statics;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -51,7 +52,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var product = _productDal.Get(c => c.Id == productId);
+                var product = _productDal.Get(c => c.Id == productId, IncludeStatic.IncludeProduct);
                 return new SuccessDataResult<Product>(product, Messages.TransactionSuccessful);
             }
             catch (Exception ex)
@@ -64,7 +65,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var products = _productDal.GetList(filter);
+                var products = _productDal.GetList(filter,IncludeStatic.IncludeProduct);
                 return new SuccessDataResult<List<Product>>(products, Messages.TransactionSuccessful);
             }
             catch (Exception ex)

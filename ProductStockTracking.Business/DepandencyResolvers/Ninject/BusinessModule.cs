@@ -31,11 +31,17 @@ namespace ProductStockTracking.Business.DepandencyResolvers.Ninject
             Bind<IFaultyPhoneDeliveryDal>().To<EfFaultyPhoneDeliveryDal>().InSingletonScope(); // sadece 1 defa newlenir 
 
 
-            //Bind<IUserService>().To<UserManager>().InSingletonScope(); // sadece 1 defa newlenir 
-            //Bind<IUserDal>().To<EfUserDal>().InSingletonScope(); // sadece 1 defa newlenir 
 
-            //Bind(typeof(IQueryableRepository<>)).To(typeof(EFQueryableRepository<>)).InSingletonScope(); // sadece 1 defa newlenir  gerekde y ok queryable için yaptık kullanılmıyor pek !!
-            //Bind<DbContext>().To<NorthwindContext>().InSingletonScope();// queeryable ısınıfda  context newlendiği için yazdık .
+            Bind<IProductService>().To<ProductManager>().InSingletonScope(); // sadece 1 defa newlenir 
+            Bind<IProductDal>().To<EfProductDal>().InSingletonScope(); // sadece 1 defa newlenir 
+
+            Bind<IProductMovementService>().To<ProductMovementManager>().InSingletonScope(); // sadece 1 defa newlenir 
+            Bind<IProductMovementDal>().To<EfProductMovementDal>().InSingletonScope(); // sadece 1 defa newlenir 
+
+            Bind<IProductTypeService>().To<ProductTypeManager>().InSingletonScope(); // sadece 1 defa newlenir 
+            Bind<IProductTypeDal>().To<EfProductTypeDal>().InSingletonScope(); // sadece 1 defa newlenir 
+
+            
 
 
             Bind<DbContext>().To<ProductStockTrackingContext>();

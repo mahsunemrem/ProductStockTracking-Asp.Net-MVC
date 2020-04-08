@@ -29,9 +29,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         {
             var result = _phoneService.GetList();
             if (result.Success)
-            {
                 return View(result.Data);
-            }
             return View(new List<Phone>());
         }
 
@@ -49,21 +47,15 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         public ActionResult AddPhone(Phone model)
         {
             IResult result;
-            if (model.Id == 0)
-            {
-
-                result = _phoneService.Add(model);
-
-            }
-
+            if (model.Id == 0)           
+                result = _phoneService.Add(model);          
             else
-            {
                 result = _phoneService.Update(model);
 
-
-            }
             if (result.Success)
                 return RedirectToAction("/PhoneList");
+
+            ViewBag.ErrorMessage = result.Message;
             return View(model);
         }
 
@@ -109,7 +101,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
                 return Json(resStr);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Telefon satış kaydı bilgileri gösterirken hata oluştu."));
                 return Json(resStr);

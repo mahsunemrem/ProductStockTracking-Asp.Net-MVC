@@ -14,6 +14,6 @@ namespace ProductStockTracking.Entities.Concrete
         public int Id { get; set; }
         public string Type { get; set; }
 
-        public virtual List<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

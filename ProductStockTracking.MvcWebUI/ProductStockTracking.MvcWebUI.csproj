@@ -1523,6 +1523,7 @@
     <Content Include="Theme\UI\assets\plugins\general\summernote\dist\summernote.js" />
     <Content Include="Theme\UI\assets\plugins\general\sweetalert2\dist\sweetalert2.css" />
     <Content Include="Theme\UI\assets\plugins\general\sweetalert2\dist\sweetalert2.min.js" />
+    <Content Include="Theme\UI\assets\plugins\general\sweetalert2\sweetalert.min.js" />
     <Content Include="Theme\UI\assets\plugins\general\tether\dist\css\tether.css" />
     <Content Include="Theme\UI\assets\plugins\general\toastr\build\toastr.css" />
     <Content Include="Theme\UI\assets\plugins\general\toastr\build\toastr.min.js" />
@@ -1813,6 +1814,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\FaultyPhone\FaultyPhoneList.cshtml" />
     <Content Include="Views\FaultyPhone\AddFaultyPhone.cshtml" />
+    <Content Include="Views\Product\AddProductType.cshtml" />
+    <Content Include="Views\Product\ProductTypeList.cshtml" />
+    <Content Include="Views\Product\AddProduct.cshtml" />
+    <Content Include="Views\Product\ProductListWithBarcode.cshtml" />
+    <Content Include="Views\Product\AddBarcodeToProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1824,7 +1830,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Theme\UI\assets\plugins\general\ion-rangeslider\img\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProductStockTracking.Business\ProductStockTracking.Business.csproj">

@@ -15,9 +15,9 @@ namespace ProductStockTracking.Entities.Concrete
         public string PhoneOwnersName { get; set; }
         public string PhoneOwnersNo { get; set; }
         public string FaultDescription { get; set; } // arıza açıklaması
-        public DateTime ReceivedDate { get; set; }  //teslim alınan tarih
+        public DateTime ReceivedDate { get; set; } = DateTime.Now; //teslim alınan tarih
         public bool DeliveryState { get; set; } // teslim durumu
 
-        public virtual  FaultyPhoneDelivery FaultyPhoneDelivery { get; set; }
+        public virtual  FaultyPhoneDelivery FaultyPhoneDelivery { get; set; } 
     }
 }

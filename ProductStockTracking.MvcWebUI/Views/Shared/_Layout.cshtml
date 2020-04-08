@@ -47,11 +47,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/Theme/UI/assets/plugins/general/select2/dist/css/select2.css" rel="stylesheet" type="text/css" />
     <link href="~/Theme/UI/assets/plugins/general/ion-rangeslider/css/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
     <link href="~/Theme/UI/assets/plugins/general/nouislider/distribute/nouislider.css" rel="stylesheet" type="text/css" />
-    <link href="~/Theme/UI/assets/plugins/general/owl.carousel/dist/~/Theme/UI/assets/owl.carousel.css" rel="stylesheet" type="text/css" />
-    <link href="~/Theme/UI/assets/plugins/general/owl.carousel/dist/~/Theme/UI/assets/owl.theme.default.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Theme/UI/assets/plugins/general/owl.carousel/dist/~/Theme/UI/assets/owl.carousel.css" rel="stylesheet" type="text/css" />
+    <link href="~/Theme/UI/assets/plugins/general/owl.carousel/dist/~/Theme/UI/assets/owl.theme.default.css" rel="stylesheet" type="text/css" />*@
     <link href="~/Theme/UI/assets/plugins/general/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <link href="~/Theme/UI/assets/plugins/general/quill/dist/quill.snow.css" rel="stylesheet" type="text/css" />
-    <link href="~/Theme/UI/assets/plugins/general/yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Theme/UI/assets/plugins/general/yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />*@
     <link href="~/Theme/UI/assets/plugins/general/summernote/dist/summernote.css" rel="stylesheet" type="text/css" />
     <link href="~/Theme/UI/assets/plugins/general/bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Theme/UI/assets/plugins/general/animate.css/animate.css" rel="stylesheet" type="text/css" />
@@ -179,9 +179,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <span class="kt-menu__arrow"></span>
                                     <ul class="kt-menu__subnav">
 
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ürün Ekle</span></a></li>
-                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ürün Listesi</span></a></li>
-
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("AddProduct","Product")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ürün Ekle</span></a></li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("ProductListWithBarcode","Product")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ürün Listesi</span></a></li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("ProductTypeList","Product")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Ürün Tipi İşlemleri</span></a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -525,14 +525,14 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Theme/UI/assets/plugins/general/wnumb/wNumb.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/jquery-form/dist/jquery.form.min.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/block-ui/jquery.blockUI.js" type="text/javascript"></script>
-    <script src="~/Theme/UI/assets/plugins/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    @*<script src="~/Theme/UI/assets/plugins/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>*@
     <script src="~/Theme/UI/assets/plugins/general/js/global/integration/plugins/bootstrap-datepicker.init.js" type="text/javascript"></script>
 
-    <script src="~/Theme/UI/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
-    <script src="~/Theme/UI/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-    <script src="~/Theme/UI/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-    <script src="~/Theme/UI/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-    <script src="~/Theme/UI/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+    @*<script src="~/Theme/UI/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>*@
+    @*<script src="~/Theme/UI/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="~/Theme/UI/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>*@
+    @*<script src="~/Theme/UI/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>*@
+    @*<script src="~/Theme/UI/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>*@
 
     <script src="~/Theme/UI/assets/plugins/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
@@ -638,6 +638,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Theme/UI/assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.germany.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.europe.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/custom/uppy/dist/uppy.min.js" type="text/javascript"></script>
+
+    <script src="~/Theme/UI/assets/plugins/general/sweetalert2/sweetalert.min.js"></script>
 
     <!--end:: Vendor Plugins for custom pages -->
     <!--end::Global Theme Bundle -->

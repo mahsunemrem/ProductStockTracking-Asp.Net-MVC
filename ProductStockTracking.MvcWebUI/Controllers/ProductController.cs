@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ProductStockTracking.Business.Abstract;
+using ProductStockTracking.Core.Utilities.Results;
+using ProductStockTracking.Entities.Concrete;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +12,153 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
+        private readonly IProductService _productService;
+        private readonly IProductMovementService _productMovementService;
+        private readonly IProductTypeService _productTypeService;
+
+
+        public ProductController(IProductService productService, IProductMovementService productMovementService, IProductTypeService productTypeService )
+        {
+            _productService = productService;
+            _productMovementService = productMovementService;
+            _productTypeService = productTypeService;
+        }
         public ActionResult Index()
         {
             return View();
         }
+
+        #region productOperations 
+
+        public ActionResult ProductListWithBarcode()
+        {
+            var result = _productService.GetList();
+            if (result.Success)
+                return View(result.Data);
+            return View(new List<Product>());
+        }
+
+
+
+
+
+        [HttpGet]
+        public ActionResult AddProduct(int id = 0)
+        {
+            var result = _productService.GetById(id);
+
+
+            ViewBag.ProductTypeId = _productTypeService.GetList().Data.Select(c => new SelectListItem { Text = c.Type.ToString(), Value = c.Id.ToString() }).ToList();
+
+             
+
+            if (result.Success && id != 0)
+            {
+                return View(result.Data);
+            }
+            return View(new Product());
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(Product model)
+        {
+            IResult result;
+            if (model.Id == 0)
+                result = _productService.Add(model);
+            else
+                result = _productService.Update(model);
+            if (result.Success)
+                return RedirectToAction("/ProductListWithBarcode");
+
+            ViewBag.ErrorMessage = result.Message;
+            
+
+        
+            return View(model);
+        }
+
+        public ActionResult AddBarcodeToProduct(int productId)
+        {
+            var result = _productService.GetById(productId);
+            if (result.Success)
+                return View(result.Data);
+            return View(new Product());
+        }
+
+       
+
+        #endregion productOperations
+
+
+        #region productTypeOperations
+
+        [HttpGet]
+        public ActionResult AddProductType(int id = 0)
+        {
+            var result = _productTypeService.GetById(id);
+            if (result.Success && id != 0)
+            {
+                return View(result.Data);
+            }
+            return View(new ProductType());
+        }
+
+        [HttpPost]
+        public ActionResult AddProductType(ProductType model)
+        {
+            IResult result;
+            if (model.Id == 0)
+                result = _productTypeService.Add(model);
+            else
+                result = _productTypeService.Update(model);
+            if (result.Success)
+                return RedirectToAction("/");
+
+            ViewBag.ErrorMessage = result.Message;
+
+
+            return View(model);
+        }
+
+        public ActionResult ProductTypeList()
+        {
+            var result = _productTypeService.GetList();
+            if (result.Success)
+                return View(result.Data);
+            return View(new List<ProductType>());
+        }
+
+        public ActionResult AddProductTypeWithAjax(string type)
+        {
+
+            try
+            {
+
+                if (type=="")
+                {
+                 throw    new  Exception(" null geldi");
+                }
+
+                ProductType productType = new ProductType();
+
+                productType.Type = type;
+     
+                var result = _productTypeService.Add(productType);
+
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                return Json(resStr);
+            }
+            catch (Exception)
+            {
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Ürün tipi kaydı yapılırken hata oluştu ! Lütfen bilgileri eksiksiz ve doğru bir şekilde girin."));
+
+                return Json(resStr);
+            }
+
+
+        }
+        #endregion productTypeOperations
+
+
     }
 }

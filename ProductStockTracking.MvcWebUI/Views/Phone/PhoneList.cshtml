@@ -278,9 +278,9 @@
     <script>
 
          function phoneSaleInfoShow(id) {
-            function toastHide() {
-                $("#toastWarnings").addClass("hide");
-            }
+            //function toastHide() {
+            //    $("#toastWarnings").addClass("hide");
+            //}
 
             var postdata = {phoneId :id };
             $.post("@Url.Action("GetPhoneSaleInfo","Phone")", postdata, function (res) {
@@ -298,20 +298,22 @@
          
                 }
                 else {
-                    $("#toastWarnings").removeClass("hide");
-                    $("#Message").text(resObj.Message);
+                    //$("#toastWarnings").removeClass("hide");
+                    //$("#Message").text(resObj.Message);
                    
-                    setTimeout(toastHide, 5000);
+                    //setTimeout(toastHide, 5000);
 
-
+                    swal("İşlem Başarısız!", resObj.Message, "error");
 
                 }
             }).fail(function () {
-                     $("#toastWarnings").removeClass("hide");
-                    $("#Message").text(resObj.Message);
+                    // $("#toastWarnings").removeClass("hide");
+                    //$("#Message").text(resObj.Message);
                    
                    
-                    setTimeout(toastHide, 5000);
+                    //setTimeout(toastHide, 5000);
+
+                swal("İşlem Başarısız!", resObj.Message, "error");
             });
         }
         function setPhoneInfo(Id, Barcode) {
@@ -327,9 +329,9 @@
 
             var phoneSaleInfo = [$('#PhoneId').val(), $('#Barcode2').val(), $('#NewPhoneOwnersName').val(), $('#NewPhoneOwnersNo').val(), $('#DeliveryDate').val(), $('#DeliveryPrice').val()]
 
-             function toastHide() {
-                $("#toastWarnings").addClass("hide");
-            }
+            // function toastHide() {
+            //    $("#toastWarnings").addClass("hide");
+            //}
 
 
             var postdata = {phoneSaleModel :phoneSaleInfo };
@@ -348,20 +350,25 @@
                 location.reload();
                 }
                 else {
-                    $("#toastWarnings").removeClass("hide");
-                    $("#Message").text(resObj.Message);
 
-                    setTimeout(toastHide, 5000);
+                     
 
+                    //$("#toastWarnings").removeClass("hide");
+                    //$("#Message").text(resObj.Message);
+                    
+                    //setTimeout(toastHide, 5000);
 
+                    swal("İşlem Başarısız!", resObj.Message, "error");
 
                 }
             }).fail(function () {
-                     $("#toastWarnings").removeClass("hide");
-                    $("#Message").text(resObj.Message);
+                    // $("#toastWarnings").removeClass("hide");
+                    //$("#Message").text(resObj.Message);
 
 
-                    setTimeout(toastHide, 5000);
+                    //setTimeout(toastHide, 5000);
+
+                swal("İşlem Başarısız!", resObj.Message, "error");
             });
         }
 

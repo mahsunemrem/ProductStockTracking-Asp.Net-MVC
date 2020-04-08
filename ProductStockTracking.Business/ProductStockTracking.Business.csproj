@@ -76,6 +76,7 @@
     <Compile Include="DepandencyResolvers\Ninject\InstanceFactory.cs" />
     <Compile Include="DepandencyResolvers\Ninject\ValidationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statics\IncludeStatic.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ValidationRules\FluentValidation\" />
