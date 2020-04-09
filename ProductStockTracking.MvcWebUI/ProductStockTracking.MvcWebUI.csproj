@@ -1818,7 +1818,6 @@
     <Content Include="Views\Product\ProductTypeList.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Product\ProductListWithBarcode.cshtml" />
-    <Content Include="Views\Product\AddBarcodeToProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -41,7 +41,9 @@ namespace ProductStockTracking.Business.DepandencyResolvers.Ninject
             Bind<IProductTypeService>().To<ProductTypeManager>().InSingletonScope(); // sadece 1 defa newlenir 
             Bind<IProductTypeDal>().To<EfProductTypeDal>().InSingletonScope(); // sadece 1 defa newlenir 
 
-            
+            Bind<IProductBarcodeService>().To<ProductBarcodeManager>().InSingletonScope(); // sadece 1 defa newlenir 
+            Bind<IProductBarcodeDal>().To<EfProductBarcodeDal>().InSingletonScope(); // sadece 1 defa newlenir 
+
 
 
             Bind<DbContext>().To<ProductStockTrackingContext>();

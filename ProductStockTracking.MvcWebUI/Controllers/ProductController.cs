@@ -15,13 +15,15 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         private readonly IProductService _productService;
         private readonly IProductMovementService _productMovementService;
         private readonly IProductTypeService _productTypeService;
+        private readonly IProductBarcodeService _productBarcodeService;
 
 
-        public ProductController(IProductService productService, IProductMovementService productMovementService, IProductTypeService productTypeService )
+        public ProductController(IProductService productService, IProductMovementService productMovementService, IProductTypeService productTypeService, IProductBarcodeService productBarcodeService)
         {
             _productService = productService;
             _productMovementService = productMovementService;
             _productTypeService = productTypeService;
+            _productBarcodeService = productBarcodeService;
         }
         public ActionResult Index()
         {
@@ -77,12 +79,27 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             return View(model);
         }
 
-        public ActionResult AddBarcodeToProduct(int productId)
+        public ActionResult AddBarcodeToProduct(int productId , string barcode)
         {
-            var result = _productService.GetById(productId);
-            if (result.Success)
-                return View(result.Data);
-            return View(new Product());
+            try
+            {
+
+                if (productId<=0)
+                {
+                    throw new Exception("Olmayan üründe barcode eklenemez !");
+                }
+
+                var result = _productBarcodeService.Add(new ProductBarcode { Barcode = barcode, ProductId = productId });
+               
+
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessResult(result.Message));
+                return Json(resStr);
+            }
+            catch (Exception)
+            {
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Telefon teslim kaydı bilgileri gösterirken hata oluştu."));
+                return Json(resStr);
+            }
         }
 
        
