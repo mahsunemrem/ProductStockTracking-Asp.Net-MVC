@@ -51,11 +51,10 @@
     <Compile Include="Concrete\ProductBarcode.cs" />
     <Compile Include="Concrete\ProductMovement.cs" />
     <Compile Include="Concrete\ProductType.cs" />
+    <Compile Include="Dtos\ProductListwithProductMovementsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ProductStockTracking.Core\ProductStockTracking.Core.csproj">
       <Project>{4C7459DC-57BE-4575-A604-D83DC442DC48}</Project>

@@ -70,5 +70,7 @@ namespace ProductStockTracking.Business.Contants
         public static string ProductTypeDeleted = "Ürün tipi silindi";
 
         public static string ProductTypeUpdated = "Ürün tipi güncellendi";
+
+        public static string ProductNotHasBarcode = "Bu barkoda ait ürün bulunamadı";
     }
 }

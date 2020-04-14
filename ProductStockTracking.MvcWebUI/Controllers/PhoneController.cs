@@ -98,8 +98,18 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 
                 string[] arrayData = { result.Data.Barcode, result.Data.NewPhoneOwnersName, result.Data.NewPhoneOwnersNo.ToString(),result.Data.DeliveryPrice.ToString() ,result.Data.DeliveryDate.ToString("dd.MM.yyyy") };
 
-                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
-                return Json(resStr);
+                if (result.Success)
+                {
+                    var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
+                    return Json(resStr);
+                }
+
+                else
+                {
+                    var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                    return Json(resStr);
+                }
+                
             }
             catch (Exception)
             {

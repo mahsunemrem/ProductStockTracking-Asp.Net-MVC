@@ -94,11 +94,20 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             try
             {
                 var result = _faultyPhoneDeliveryService.GetById(phoneId);
+               
+                if (result.Success)
+                {
+                    string[] arrayData = { result.Data.Barcode, result.Data.Transactions, result.Data.TransactionPrice.ToString(), result.Data.DeliveryDate.ToString("dd.MM.yyyy") };
 
-                string[] arrayData ={result.Data.Barcode, result.Data.Transactions, result.Data.TransactionPrice.ToString(), result.Data.DeliveryDate.ToString("dd.MM.yyyy")};
-
-                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
-                return Json(resStr);
+                     var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessDataResult<string[]>(arrayData));
+                    return Json(resStr);
+                }
+                else
+                {
+                   var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                    return Json(resStr);
+                }
+                 
             }
             catch (Exception)
             {

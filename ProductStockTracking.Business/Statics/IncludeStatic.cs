@@ -13,7 +13,13 @@ namespace ProductStockTracking.Business.Statics
         public static Expression<Func<Product, object>>[] IncludeProduct = {
 
             c=>c.ProductType,
-            c=>c.ProductBarcodes
+            c=>c.ProductBarcodes,
+            c=>c.ProductMovements
+       };
+
+        public static Expression<Func<ProductMovement, object>>[] IncludeProductMovement = {
+
+            c=>c.Product,
         };
     }
 }

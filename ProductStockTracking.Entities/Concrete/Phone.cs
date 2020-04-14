@@ -13,7 +13,7 @@ namespace ProductStockTracking.Entities.Concrete
         public int Id { get; set; }
         public string Barcode { get; set; }
         public string BrandModel { get; set; }
-        public PhoneType PhoneType;
+        public PhoneType PhoneType { get; set; }
 
         public string FaultyPhone { get; set; }
         public int GuaranteeTerm { get; set; } //garanti süresi

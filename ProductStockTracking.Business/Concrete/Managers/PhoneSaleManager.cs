@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
-    class PhoneSaleManager : IPhoneSaleService
+    public class PhoneSaleManager : IPhoneSaleService
     {
         private readonly IPhoneSaleDal _phoneSaleDal;
         private readonly IPhoneService _phoneService;

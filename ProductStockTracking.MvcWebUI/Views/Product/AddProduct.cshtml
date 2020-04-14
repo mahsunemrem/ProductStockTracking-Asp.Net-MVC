@@ -3,93 +3,7 @@
     ViewBag.Title = "AddProduct";
 }
 
-@*<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <form method="post" action="AddProduct" class="kt-form" id="kt_form">
-                    begin::Portlet
-                    <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
-                        <div class="kt-portlet__head kt-portlet__head--lg">
-                            <div class="kt-portlet__head-label">
-                                <h3 class="kt-portlet__head-title">Ürün Ekle <small>Dikkat !</small></h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <a href="#" class="btn btn-clean kt-margin-r-10">
-                                    <i class="la la-arrow-left"></i>
-                                    <span class="kt-hidden-mobile">Back</span>
-                                </a>
-                                <div class="btn-group">
-                                    <button type="submit" class="btn btn-brand">
 
-                                        <span class="kt-hidden-mobile">
-                                            <i class="la la-check"></i>
-                                            Kaydet
-                                        </span>
-
-                                    </button>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="kt-portlet__body">
-
-                            <div class="row">
-                                <div class="col-xl-2"></div>
-                                <div class="col-xl-8">
-                                    <div class="kt-section kt-section--first">
-                                        <div class="kt-section__body">
-                                            <h3 class="kt-section__title kt-section__title-lg">Ürün Bilgileri :</h3>
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-xl-2"></div>
-                            </div>
-
-                        </div>
-                        <div class="kt-portlet__body">
-
-                            <div class="row">
-                                <div class="col-xl-2"></div>
-                                <div class="col-xl-8">
-                                    <div class="kt-section kt-section--first">
-                                        <div class="kt-section__body">
-                                            <h3 class="kt-section__title kt-section__title-lg">Barkod Bilgileri :</h3>
-
-                                            <div class="form-group row">
-                                                <label class="col-3 col-form-label">Barcode</label>
-                                                <div class="col-9">
-                                                    <input name="Barcode" id="Barcode" type="text" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <button type="button" class="btn btn-primary btn-block">
-
-                                                <span class="kt-hidden-mobile">
-                                                    <i class="la la-check"></i>
-                                                    Kaydet
-                                                </span>
-
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-xl-2"></div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </form>
-
-                end::Portlet
-            </div>
-        </div>
-
-    </div>*@
 <div class="kt-portlet kt-portlet--tabs">
     <div class="kt-portlet__head">
         <div class="kt-portlet__head-toolbar">
@@ -229,7 +143,10 @@
 
                                         <div class="col-lg-9 col-xl-6">
 
-                                            <span class="kt-badge kt-badge--brand kt-badge--xl kt-badge--rounded">21312321321312312</span>
+                                            @foreach (var barcode in Model.ProductBarcodes)
+                                            {
+                                                <span class="badge badge-primary ">@barcode.Barcode <span> <button type="button" class="btn btn-primary btn-sm" onclick="deleteBarcode(@barcode.Id)" btn-block">X</button></span></span>
+                                            }
                                         </div>
 
                                     </div>
@@ -256,21 +173,48 @@
     <script>
 
 
-        function addBarcode(id) {
+        function deleteBarcode(id) {
 
             
+            var postdata = { id :id };
+            $.post("@Url.Action("DeleteBarcodeFromProduct","Product")", postdata, function (res) {
 
-            var postdata = {phoneId :id };
+                var resObj=jQuery.parseJSON(res)
+                if (resObj.Success) {
+
+                    $("#Barcode").text("");
+
+                    location.reload();
+
+                }
+                else {
+                   
+                    swal("İşlem Başarısız!", resObj.Message, "error");
+
+
+                }
+            }).fail(function () {
+                    
+
+                swal("İşlem Başarısız!", resObj.Message, "error");
+            });
+
+        }
+
+        function addBarcode(id) {
+
+            var barcodeInfo = $('#Barcode').val();
+            
+            var postdata = { productId :id ,barcode :barcodeInfo };
             $.post("@Url.Action("AddBarcodeToProduct","Product")", postdata, function (res) {
 
                 var resObj=jQuery.parseJSON(res)
                 if (resObj.Success) {
 
-                    $("#barcodeShow").text(resObj.Data[0]);
-                    $("#transactionShow").text(resObj.Data[1]);
-                    $("#deliveryPriceShow").text(resObj.Data[2]);
-                    $("#deliveryDateShow").text(resObj.Data[3]);
+                    $("#Barcode").text("");
 
+                    
+                    
 
                 }
                 else {

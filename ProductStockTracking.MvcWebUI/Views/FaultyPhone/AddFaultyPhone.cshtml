@@ -41,6 +41,7 @@
                                     <div class="kt-section__body">
                                         <h3 class="kt-section__title kt-section__title-lg">Telefon Bilgileri :</h3>
                                         <div class="form-group row">
+                                            @Html.HiddenFor(model => model.Id)
                                             <label class="col-3 col-form-label">Barkod</label>
                                             <div class="col-9">
                                                 @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
@@ -79,7 +80,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
 
-                                                        <input type="text" name="PhoneOwnersNo" id="PhoneOwnersNo" class="form-control" value="" placeholder="Phone" aria-describedby="basic-addon1">
+                                                        <input type="text" name="PhoneOwnersNo" id="PhoneOwnersNo" class="form-control" value="@Model.PhoneOwnersNo" placeholder="Phone" aria-describedby="basic-addon1">
                                                     </div>
                                                     <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                                 </div>
@@ -87,7 +88,8 @@
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 ">Alınan Tarih</label>
                                                 <div class=" col-9 ">
-                                                    @Html.TextBoxFor(model => model.ReceivedDate, new { @class = "form-control", type = "date" })
+                                                   
+                                                    @Html.TextBoxFor(model => model.ReceivedDate, new { @class = " form-control", type = "date", @Value = Model.ReceivedDate.ToString("yyyy-MM-dd") })
                                                 </div>
                                             </div>
 

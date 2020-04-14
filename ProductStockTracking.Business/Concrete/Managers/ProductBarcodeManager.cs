@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
-    class ProductBarcodeManager : IProductBarcodeService
+    public class ProductBarcodeManager : IProductBarcodeService
     {
         private readonly IProductBarcodeDal _productBarcodeDal;
 
@@ -51,7 +51,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var productBarcode = _productBarcodeDal.Get(c => c.ProductId == productBarcodeId);
+                var productBarcode = _productBarcodeDal.Get(c => c.Id == productBarcodeId);
                 return new SuccessDataResult<ProductBarcode>(productBarcode, Messages.TransactionSuccessful);
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.Entities.Concrete;
+using ProductStockTracking.Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace ProductStockTracking.Business.Abstract
         IResult Add(Product product);
         IResult Update(Product product);
         IResult Delete(Product product);
+        IDataResult<List<ProductListwithProductMovementsViewModel>> GetListWithProductMovements(Expression<Func<Product, bool>> filter = null);
     }
 }

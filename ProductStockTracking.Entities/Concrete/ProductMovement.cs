@@ -16,10 +16,12 @@ namespace ProductStockTracking.Entities.Concrete
         public int Id { get; set; }
         [ForeignKey("Product")]
         public int ProductId { get; set; }
+
+        public string Barcode { get; set; }
         public ProductTransaction ProductTransaction { get; set; }
 
         public int Piece { get; set; }
-        public DateTime TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; } = DateTime.Now;
         public float Price { get; set; }
 
         public Product Product { get; set; }

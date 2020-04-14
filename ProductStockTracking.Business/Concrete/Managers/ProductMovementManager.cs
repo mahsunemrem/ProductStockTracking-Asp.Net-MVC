@@ -1,5 +1,6 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.Statics;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -15,16 +16,26 @@ namespace ProductStockTracking.Business.Concrete.Managers
     public class ProductMovementManager : IProductMovementService
     {
         private readonly IProductMovementDal _productMovementDal;
+        private readonly IProductBarcodeService _productBarcodeService;
 
-        public ProductMovementManager(IProductMovementDal productMovementDal)
+        public ProductMovementManager(IProductMovementDal productMovementDal, IProductBarcodeService productBarcodeService)
         {
             _productMovementDal = productMovementDal;
+            _productBarcodeService = productBarcodeService;
         }
 
         public IResult Add(ProductMovement productMovement)
         {
             try
             {
+                var productBarcode= _productBarcodeService.GetList(c => c.Barcode == productMovement.Barcode).Data.First();
+                if (productBarcode==null)
+                {
+                    throw new Exception(Messages.ProductNotHasBarcode);
+                }
+
+                productMovement.ProductId=productBarcode.ProductId;
+
                 _productMovementDal.Add(productMovement);
                 return new SuccessResult(Messages.ProductMovementAdded);
             }
@@ -51,7 +62,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var productMovement = _productMovementDal.Get(c => c.ProductId == productMovementId);
+                var productMovement = _productMovementDal.Get(c => c.ProductId == productMovementId,IncludeStatic.IncludeProductMovement);
                 return new SuccessDataResult<ProductMovement>(productMovement, Messages.TransactionSuccessful);
             }
             catch (Exception ex)
@@ -64,7 +75,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var productMovements = _productMovementDal.GetList(filter);
+                var productMovements = _productMovementDal.GetList(filter, IncludeStatic.IncludeProductMovement);
                 return new SuccessDataResult<List<ProductMovement>>(productMovements, Messages.TransactionSuccessful);
             }
             catch (Exception ex)

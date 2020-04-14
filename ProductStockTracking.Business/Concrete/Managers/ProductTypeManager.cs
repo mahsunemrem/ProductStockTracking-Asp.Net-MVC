@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
-    class ProductTypeManager : IProductTypeService
+    public class ProductTypeManager : IProductTypeService
     {
         private readonly IProductTypeDal _productTypeDal;
 

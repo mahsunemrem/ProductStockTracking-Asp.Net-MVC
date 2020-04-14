@@ -1,6 +1,7 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.Entities.Concrete;
+using ProductStockTracking.Entities.Dtos;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,6 +33,14 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 
         #region productOperations 
 
+
+        public ActionResult ProductListWithProductMovements(int id=0)
+        {
+            var result = _productService.GetListWithProductMovements(c => c.ProductTypeId==id);
+            if (result.Success)
+                return View(result.Data);
+            return View(new List<ProductListwithProductMovementsViewModel>());
+        }
         public ActionResult ProductListWithBarcode()
         {
             var result = _productService.GetList();
@@ -92,7 +101,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 var result = _productBarcodeService.Add(new ProductBarcode { Barcode = barcode, ProductId = productId });
                
 
-                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessResult(result.Message));
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
                 return Json(resStr);
             }
             catch (Exception)
@@ -102,10 +111,76 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             }
         }
 
-       
+        public ActionResult DeleteBarcodeFromProduct(int id)
+        {
+
+            
+            try
+            {
+                if (id==0)
+                    throw new Exception();
+
+               var data = _productBarcodeService.GetById(id).Data;
+               var result= _productBarcodeService.Delete(data);
+               var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                return Json(resStr);
+
+            }
+            catch (Exception r)
+            {
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Barkod silinirken bir hata oluştu."));
+                return Json(resStr);
+            }
+        }
+
 
         #endregion productOperations
 
+
+        #region productMovement
+        [HttpGet]
+        public ActionResult AddProductMovement(int id=0)
+        {
+            var result = _productMovementService.GetById(id);
+
+
+            if (result.Success && id != 0)
+            {
+                return View(result.Data);
+            }
+            return View(new ProductMovement());
+
+        }
+
+
+        [HttpPost]
+        public ActionResult AddProductMovement(ProductMovement model)
+        {
+            IResult result;
+            if (model.Id == 0)
+                result = _productMovementService.Add(model);
+            else
+                result = _productMovementService.Update(model);
+            if (result.Success)
+                return RedirectToAction("/ProductMovementPhoneList");
+
+            ViewBag.ErrorMessage = result.Message;
+
+
+
+            return View(model);
+        }
+
+        public ActionResult ProductMovementPhoneList()
+        {
+            var result = _productMovementService.GetList();
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            return View(new List<ProductMovement>());
+        }
+        #endregion productMovement
 
         #region productTypeOperations
 
