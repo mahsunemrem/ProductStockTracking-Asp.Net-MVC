@@ -1,5 +1,9 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -20,7 +24,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             _productTypeDal = productTypeDal;
         }
-
+        [FluentValidationAspect(typeof(ProductTypeValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Add(ProductType productType)
         {
             try
@@ -59,7 +64,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<ProductType>(ex.Message);
             }
         }
-
+        [CacheAspect(typeof(MemoryCacheManager))]
         public IDataResult<List<ProductType>> GetList(Expression<Func<ProductType, bool>> filter = null)
         {
             try
@@ -72,7 +77,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<List<ProductType>>(ex.Message);
             }
         }
-
+        [FluentValidationAspect(typeof(ProductTypeValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Update(ProductType productType)
         {
             try

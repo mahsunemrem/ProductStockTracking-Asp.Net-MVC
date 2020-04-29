@@ -1,5 +1,10 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.AuthorizationAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -7,11 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using CacheAspect = ProductStockTracking.Core.Aspects.Postsharp.CacheAspects.CacheAspect;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
+    [SecuredOperation(Roles = "Admin,Editor,Student")]
     public class PhoneManager : IPhoneService
     {
         private readonly IPhoneDal _phoneDal;
@@ -21,10 +26,13 @@ namespace ProductStockTracking.Business.Concrete.Managers
             _phoneDal = phoneDal;
         }
 
+        [FluentValidationAspect(typeof(PhoneValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Add(Phone phone)
         {
             try
             {
+                //ValidatorTool.FluentVAlidate(new PhoneValidator(), phone);
                 _phoneDal.Add(phone);
                 return new SuccessResult(Messages.PhoneAdded);
             }
@@ -60,6 +68,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
             }
         }
 
+        [CacheAspect(typeof(MemoryCacheManager))]
         public IDataResult<List<Phone>> GetList(Expression<Func<Phone, bool>> filter = null)
         {
             try
@@ -73,6 +82,9 @@ namespace ProductStockTracking.Business.Concrete.Managers
             }
         }
 
+
+        [FluentValidationAspect(typeof(PhoneValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Update(Phone phone)
         {
             try

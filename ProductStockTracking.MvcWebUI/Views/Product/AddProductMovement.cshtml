@@ -3,81 +3,94 @@
     ViewBag.Title = "AddProductMovement";
 }
 
-    <div class="kt-portlet">
-        <div class="kt-portlet__head">
-            <div class="kt-portlet__head-label">
-                <h3 class="kt-portlet__head-title">
-                    Ürün Hareketi
-                </h3>
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                Ürün Hareketi
+            </h3>
+        </div>
+    </div>
+
+    <!--begin::Form-->
+    @using (Html.BeginForm("AddProductMovement", "Product", FormMethod.Post, new { @class = "kt-form", id = "kt-form" }))
+    {
+
+        <div class="kt-portlet__body">
+
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>İşlem</label>
+                    <div class="kt-input-icon">
+                        @Html.EnumDropDownListFor(model => model.ProductTransaction, new { @class = "form-control" })
+
+                    </div>
+                    <span class="form-text text-muted">Please enter your address</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Barkod</label>
+                    <div class="kt-input-icon">
+                        @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
+                    </div>
+                    <span class="form-text text-muted">Please enter your address</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Adet</label>
+                    <div class="kt-input-icon">
+                        @Html.TextBoxFor(model => model.Piece, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Piece, "", new { @class = "text-danger" })
+                    </div>
+                    <span class="form-text text-muted">Please enter your address</span>
+                </div>
+
+
+
             </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label>Ücret</label>
+                    <div class="kt-input-icon">
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number" })
+                    </div>
+                    <span class="form-text text-muted">Please enter your address</span>
+                </div>
+                <div class="col-lg-6">
+                    <label>Barkod</label>
+                    <div class="kt-input-icon">
+                        @Html.TextBoxFor(model => model.TransactionDate, new { @class = " form-control", type = "date", @Value = Model.TransactionDate.ToString("yyyy-MM-dd") })
+                    </div>
+                    <span class="form-text text-muted">Please enter your address</span>
+                </div>
+            </div>
+
         </div>
 
-        <!--begin::Form-->
-        <form action="AddProductMovement" method="post" class="kt-form" id="kt_form">
-            <div class="kt-portlet__body">
 
-                @Html.HiddenFor(model => model.Id)
-                <div class="form-group row">
-                    <div class="col-lg-4">
-                        <label>İşlem</label>
-                        <div class="kt-input-icon">
-                            @Html.EnumDropDownListFor(model => model.ProductTransaction, new { @class = "form-control" })
-
-                        </div>
-                        <span class="form-text text-muted">Please enter your address</span>
-                    </div>
-                    <div class="col-lg-4">
-                        <label>Barkod</label>
-                        <div class="kt-input-icon">
-                            @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
-
-                        </div>
-                        <span class="form-text text-muted">Please enter your address</span>
-                    </div>
-                    <div class="col-lg-4">
-                        <label>Adet</label>
-                        <div class="kt-input-icon">
-                            @Html.TextBoxFor(model => model.Piece, new { @class = "form-control" })
-
-                        </div>
-                        <span class="form-text text-muted">Please enter your address</span>
-                    </div>
-
-
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-lg-6">
-                        <label>Ücret</label>
-                        <div class="kt-input-icon">
-                            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number" })
-                        </div>
-                        <span class="form-text text-muted">Please enter your address</span>
-                    </div>
-                    <div class="col-lg-6">
-                        <label>Barkod</label>
-                        <div class="kt-input-icon">
-                            @Html.TextBoxFor(model => model.TransactionDate, new { @class = " form-control", type = "date", @Value = Model.TransactionDate.ToString("yyyy-MM-dd") })
-                        </div>
-                        <span class="form-text text-muted">Please enter your address</span>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="kt-portlet__foot">
-                <div class="kt-form__actions">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-block btn-primary">Kaydet</button>
-
-                        </div>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-block btn-primary">Kaydet</button>
 
                     </div>
+
                 </div>
             </div>
-        </form>
+        </div>
+    }
 
-        <!--end::Form-->
-    </div>
+    <!--end::Form-->
+</div>
+
+
+@section scripts{
+
+
+
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

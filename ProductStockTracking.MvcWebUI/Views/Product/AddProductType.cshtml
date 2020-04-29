@@ -8,7 +8,9 @@
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="row">
         <div class="col-lg-12">
-            <form method="post" action="AddProductType" class="kt-form" id="kt_form">
+
+            @using (Html.BeginForm("AddProductType", "Product", FormMethod.Post, new { @class = "kt-form", id = "kt-form" }))
+            {
                 <!--begin::Portlet-->
                 <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
                     <div class="kt-portlet__head kt-portlet__head--lg">
@@ -46,11 +48,11 @@
                                             <label class="col-3 col-form-label">Barkod</label>
                                             <div class="col-9">
                                                 @Html.TextBoxFor(model => model.Type, new { @class = "form-control" })
-
+                                                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        
-                                    </div>                                    
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xl-2"></div>
@@ -58,7 +60,7 @@
 
                     </div>
                 </div>
-            </form>
+            }
             <!--end::Portlet-->
         </div>
     </div>
@@ -97,5 +99,9 @@
     }
 
 
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 }

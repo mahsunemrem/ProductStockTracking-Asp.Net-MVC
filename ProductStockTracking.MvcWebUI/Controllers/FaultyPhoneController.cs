@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ProductStockTracking.MvcWebUI.Controllers
 {
+
     public class FaultyPhoneController : Controller
     {
         IFaultyPhoneService _faultyPhoneService;

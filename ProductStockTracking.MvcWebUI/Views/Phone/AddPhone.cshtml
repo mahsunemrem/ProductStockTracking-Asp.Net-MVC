@@ -6,7 +6,13 @@
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="row">
         <div class="col-lg-12">
-            <form method="post" action="AddPhone" class="kt-form" id="kt_form">
+
+            @using (Html.BeginForm("AddPhone", "Phone", FormMethod.Post, new { @class = "kt-form", id = "kt-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+
+                // <form method="post" action="AddPhone" class="kt-form" id="kt_form">
                 <!--begin::Portlet-->
                 <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
                     <div class="kt-portlet__head kt-portlet__head--lg">
@@ -18,7 +24,9 @@
                                 <i class="la la-arrow-left"></i>
                                 <span class="kt-hidden-mobile">Back</span>
                             </a>
+
                             <div class="btn-group">
+
                                 <button type="submit" class="btn btn-brand">
 
                                     <span class="kt-hidden-mobile">
@@ -46,6 +54,7 @@
                                             <label class="col-3 col-form-label">Barkod</label>
                                             <div class="col-9">
                                                 @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
 
                                             </div>
                                         </div>
@@ -53,18 +62,22 @@
                                             <label class="col-3 col-form-label">Marka / Model</label>
                                             <div class="col-9">
                                                 @Html.TextBoxFor(model => model.BrandModel, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.BrandModel, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Tür</label>
                                             <div class="col-9">
                                                 @Html.EnumDropDownListFor(model => model.PhoneType, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.PhoneType, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Garanti Süresi</label>
                                             <div class="col-9">
+
                                                 @Html.TextBoxFor(model => model.GuaranteeTerm, new { @class = "form-control", type = "number" })
+                                                @Html.ValidationMessageFor(model => model.GuaranteeTerm, "", new { @class = "text-danger" })
 
                                             </div>
                                         </div>
@@ -72,7 +85,7 @@
                                             <label class="col-form-label col-lg-3 col-sm-12">Telefon Arızası</label>
                                             <div class="col-9 ">
                                                 @Html.TextAreaFor(model => model.FaultDescription, new { @class = "form-control", @rows = "6" })
-
+                                                @Html.ValidationMessageFor(model => model.FaultDescription, "", new { @class = "text-danger" })
                                                 <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
                                             </div>
                                         </div>
@@ -81,6 +94,7 @@
 
                                             <div class="col-9 ">
                                                 @Html.TextAreaFor(model => model.AccessoryStatus, new { @class = "form-control", @rows = "3" })
+                                                @Html.ValidationMessageFor(model => model.AccessoryStatus, "", new { @class = "text-danger" })
                                                 <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
                                             </div>
 
@@ -89,7 +103,8 @@
                                         <div class="form-group row">
                                             <label class="col-3 col-form-label">Alış Fiyatı</label>
                                             <div class="col-9">
-                                                @Html.TextBoxFor(model => model.GuaranteeTerm, new { @class = "form-control", type = "number" })
+                                                @Html.TextBoxFor(model => model.ReceivedPrice, new { @class = "form-control", type = "number" })
+                                                @Html.ValidationMessageFor(model => model.ReceivedPrice, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
@@ -101,6 +116,7 @@
                                                 <label class="col-3 col-form-label">Alınan Kişi Adı</label>
                                                 <div class="col-9">
                                                     @Html.TextBoxFor(model => model.OldPhoneOwnersName, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.OldPhoneOwnersName, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
@@ -111,6 +127,7 @@
                                                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
 
                                                         <input type="text" name="OldPhoneOwnersNo" id="OldPhoneOwnersNo" class="form-control" value="@Model.OldPhoneOwnersNo" placeholder="Phone" aria-describedby="basic-addon1">
+                                                        @Html.ValidationMessageFor(model => model.OldPhoneOwnersName, "", new { @class = "text-danger" })
                                                     </div>
                                                     <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                                 </div>
@@ -131,11 +148,13 @@
 
                     </div>
                 </div>
-            </form>
+                //</form>
+            }
             <!--end::Portlet-->
         </div>
     </div>
 </div>
+
 
 @section scripts{
 
@@ -145,10 +164,16 @@
     {
         <script>
             function message() {
-                swal("İşlem Başarısız!", "@ViewBag.ErrorMessage", "error");
+                debugger;
+                console.log(@ViewBag.ErrorMessage);
+                swal("İşlem Başarısız!", @ViewBag.ErrorMessage, "error");
 
             }
-            message();
+
+            $( document ).ready(function() {
+    message();
+});
+
 
 
         </script>
@@ -167,7 +192,10 @@
 
         </script>
     }
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
 
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 
 }

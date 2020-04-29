@@ -6,7 +6,8 @@
 <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
     <div class="row">
         <div class="col-lg-12">
-            <form method="post" action="AddFaultyPhone" class="kt-form" id="kt_form">
+            @using (Html.BeginForm("AddFaultyPhone", "FaultyPhone", FormMethod.Post, new { @class = "kt-form", id = "kt-form" }))
+            {
                 <!--begin::Portlet-->
                 <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
                     <div class="kt-portlet__head kt-portlet__head--lg">
@@ -45,6 +46,7 @@
                                             <label class="col-3 col-form-label">Barkod</label>
                                             <div class="col-9">
                                                 @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
 
                                             </div>
                                         </div>
@@ -52,12 +54,14 @@
                                             <label class="col-3 col-form-label">Marka / Model</label>
                                             <div class="col-9">
                                                 @Html.TextBoxFor(model => model.BrandModel, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.BrandModel, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-form-label col-lg-3 col-sm-12">Telefon Arızası</label>
                                             <div class="col-9 ">
                                                 @Html.TextAreaFor(model => model.FaultDescription, new { @class = "form-control", @rows = "6" })
+                                                @Html.ValidationMessageFor(model => model.FaultDescription, "", new { @class = "text-danger" })
 
                                                 <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
                                             </div>
@@ -71,6 +75,7 @@
                                                 <label class="col-3 col-form-label">Telefon Sahibinin Adı</label>
                                                 <div class="col-9">
                                                     @Html.TextBoxFor(model => model.PhoneOwnersName, new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.PhoneOwnersName, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
@@ -81,6 +86,7 @@
                                                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
 
                                                         <input type="text" name="PhoneOwnersNo" id="PhoneOwnersNo" class="form-control" value="@Model.PhoneOwnersNo" placeholder="Phone" aria-describedby="basic-addon1">
+                                                        @Html.ValidationMessageFor(model => model.PhoneOwnersNo, "", new { @class = "text-danger" })
                                                     </div>
                                                     <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                                 </div>
@@ -88,7 +94,7 @@
                                             <div class="form-group row">
                                                 <label class="col-form-label col-3 ">Alınan Tarih</label>
                                                 <div class=" col-9 ">
-                                                   
+
                                                     @Html.TextBoxFor(model => model.ReceivedDate, new { @class = " form-control", type = "date", @Value = Model.ReceivedDate.ToString("yyyy-MM-dd") })
                                                 </div>
                                             </div>
@@ -102,7 +108,8 @@
 
                     </div>
                 </div>
-            </form>
+
+            }
             <!--end::Portlet-->
         </div>
     </div>
@@ -110,8 +117,8 @@
 
 
 @section scripts{
-    
-  
+
+
 
     @if (ViewBag.ErrorMessage != null)
     {
@@ -141,5 +148,8 @@
     }
 
 
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
 
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }

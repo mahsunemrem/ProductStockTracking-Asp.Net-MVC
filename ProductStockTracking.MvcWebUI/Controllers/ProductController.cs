@@ -126,7 +126,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 return Json(resStr);
 
             }
-            catch (Exception r)
+            catch (Exception e)
             {
                 var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Barkod silinirken bir hata oluştu."));
                 return Json(resStr);

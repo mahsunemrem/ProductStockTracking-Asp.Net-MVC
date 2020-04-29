@@ -1,6 +1,10 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
 using ProductStockTracking.Business.Statics;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -23,7 +27,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
             _productMovementDal = productMovementDal;
             _productBarcodeService = productBarcodeService;
         }
-
+        [FluentValidationAspect(typeof(ProductMovementValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Add(ProductMovement productMovement)
         {
             try
@@ -70,7 +75,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<ProductMovement>(ex.Message);
             }
         }
-
+        [CacheAspect(typeof(MemoryCacheManager))]
         public IDataResult<List<ProductMovement>> GetList(Expression<Func<ProductMovement, bool>> filter = null)
         {
             try
@@ -83,7 +88,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<List<ProductMovement>>(ex.Message);
             }
         }
-
+        [FluentValidationAspect(typeof(ProductMovementValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Update(ProductMovement productMovement)
         {
             try

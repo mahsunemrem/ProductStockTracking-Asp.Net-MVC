@@ -1,5 +1,10 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.AuthorizationAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -12,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
+    [SecuredOperation(Roles="Admin,Editor,Student")]
     public class FaultyPhoneDeliveryManager : IFaultyPhoneDeliveryService
     {
         private readonly IFaultyPhoneDeliveryDal _faultyPhoneDeliveryDal;
@@ -22,7 +28,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
             _faultyPhoneDeliveryDal = faultyPhoneDeliveryDal;
             _faultyPhoneService = faultyPhoneService;
         }
-
+        [FluentValidationAspect(typeof(FaultyPhoneDeliveryValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Add(FaultyPhoneDelivery faultyPhoneDelivery)
         {
 
@@ -65,7 +72,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<FaultyPhoneDelivery>(ex.Message);
             }
         }
-
+        [CacheAspect(typeof(MemoryCacheManager))]
         public IDataResult<List<FaultyPhoneDelivery>> GetList(Expression<Func<FaultyPhoneDelivery, bool>> filter = null)
         {
             try
@@ -78,7 +85,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<List<FaultyPhoneDelivery>> (ex.Message);
             }
         }
-
+        [FluentValidationAspect(typeof(FaultyPhoneDeliveryValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Update(FaultyPhoneDelivery faultyPhoneDelivery)
         {
             try

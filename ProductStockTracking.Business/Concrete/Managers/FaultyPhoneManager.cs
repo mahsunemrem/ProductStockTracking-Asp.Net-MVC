@@ -1,5 +1,10 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.AuthorizationAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -12,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
+    [SecuredOperation(Roles = "Editor,Student")]
     public class FaultyPhoneManager : IFaultyPhoneService
     {
         private readonly IFaultyPhoneDal _faultyPhoneDal;
@@ -20,7 +26,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             _faultyPhoneDal = faultyPhoneDal;
         }
-
+        [FluentValidationAspect(typeof(FaultyPhoneValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Add(FaultyPhone faultyPhone)
         {
             try
@@ -59,7 +66,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<FaultyPhone>(ex.Message);
             }
         }
-
+        [CacheAspect(typeof(MemoryCacheManager))]
         public IDataResult<List<FaultyPhone>> GetList(Expression<Func<FaultyPhone, bool>> filter = null)
         {
             try
@@ -72,7 +79,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<List<FaultyPhone>>(ex.Message);
             }
         }
-
+        [FluentValidationAspect(typeof(FaultyPhoneValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Update(FaultyPhone faultyPhone)
         {
             try

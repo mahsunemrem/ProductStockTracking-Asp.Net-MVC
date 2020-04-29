@@ -12,7 +12,7 @@ namespace ProductStockTracking.MvcWebUI.StartupTasks
     public static class ProductTypeStartUp
     {
         public static  IProductTypeService _productTypeService = new ProductTypeManager(new EfProductTypeDal());
-        public  static  List<ProductType> productTypes= _productTypeService.GetList().Data;
+        public  static  List<ProductType> productTypes= _productTypeService.GetList().Data ?? new List<ProductType>();
 
 
        

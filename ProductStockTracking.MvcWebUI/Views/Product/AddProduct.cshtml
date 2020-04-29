@@ -53,19 +53,22 @@
                                         <h3 class="kt-section__title kt-section__title-sm">Ürün Ekle : </h3>
                                     </div>
                                 </div>
+                                @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { @class = "kt-form", id = "kt-form" }))
+                                {
 
-                                <form action="AddProduct" method="post">
                                     @Html.HiddenFor(model => model.Id);
                                     <div class="form-group row">
                                         <label class="col-3 col-form-label">Marka / Model</label>
                                         <div class="col-6">
                                             @Html.TextBoxFor(model => model.BrandModel, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.BrandModel, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-3 col-form-label">Tip</label>
                                         <div class="col-6">
                                             @Html.TextBoxFor(model => model.Type, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -79,7 +82,7 @@
                                         <label class="col-form-label col-lg-3 col-sm-12">Özellikler</label>
                                         <div class="col-6 ">
                                             @Html.TextAreaFor(model => model.Features, new { @class = "form-control", @rows = "6" })
-
+                                            @Html.ValidationMessageFor(model => model.Features, "", new { @class = "text-danger" })
                                             <span class="form-text text-muted">Bootstrap maxlength supports textarea as well as inputs</span>
                                         </div>
                                     </div>
@@ -89,7 +92,7 @@
                                             <button type="submit" class="float-right btn btn-label-danger btn-bold  kt-margin-t-5 kt-margin-b-5">Kaydet</button>
                                         </div>
                                     </div>
-                                </form>
+                                }
                             </div>
                         </div>
                     </div>
@@ -175,7 +178,7 @@
 
         function deleteBarcode(id) {
 
-            
+
             var postdata = { id :id };
             $.post("@Url.Action("DeleteBarcodeFromProduct","Product")", postdata, function (res) {
 
@@ -188,13 +191,13 @@
 
                 }
                 else {
-                   
+
                     swal("İşlem Başarısız!", resObj.Message, "error");
 
 
                 }
             }).fail(function () {
-                    
+
 
                 swal("İşlem Başarısız!", resObj.Message, "error");
             });
@@ -204,7 +207,7 @@
         function addBarcode(id) {
 
             var barcodeInfo = $('#Barcode').val();
-            
+
             var postdata = { productId :id ,barcode :barcodeInfo };
             $.post("@Url.Action("AddBarcodeToProduct","Product")", postdata, function (res) {
 
@@ -213,18 +216,18 @@
 
                     $("#Barcode").text("");
 
-                    
-                    
+
+
 
                 }
                 else {
-                   
+
                     swal("İşlem Başarısız!", resObj.Message, "error");
 
 
                 }
             }).fail(function () {
-                    
+
 
                 swal("İşlem Başarısız!", resObj.Message, "error");
             });
@@ -261,6 +264,10 @@
     }
 
 
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 }
 

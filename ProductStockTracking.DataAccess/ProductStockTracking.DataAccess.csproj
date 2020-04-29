@@ -59,6 +59,9 @@
     <Compile Include="Abstract\IProductDal.cs" />
     <Compile Include="Abstract\IProductMovementDal.cs" />
     <Compile Include="Abstract\IProductTypeDal.cs" />
+    <Compile Include="Abstract\IRoleDal.cs" />
+    <Compile Include="Abstract\IUserDal.cs" />
+    <Compile Include="Abstract\IUserRoleDal.cs" />
     <Compile Include="Concrete\EntityFramework\Contexts\ProductStockTrackingContext.cs" />
     <Compile Include="Concrete\EntityFramework\EfFaultyPhoneDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfFaultyPhoneDeliveryDal.cs" />
@@ -68,6 +71,9 @@
     <Compile Include="Concrete\EntityFramework\EfProductDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfProductMovementDal.cs" />
     <Compile Include="Concrete\EntityFramework\EfProductTypeDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfRoleDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfUserDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfUserRoleDal.cs" />
     <Compile Include="Concrete\EntityFramework\Mappings\FaultyPhoneDeliveriesMap.cs" />
     <Compile Include="Concrete\EntityFramework\Mappings\FaultyPhoneMap.cs" />
     <Compile Include="Concrete\EntityFramework\Mappings\PhoneMap.cs" />
@@ -76,6 +82,9 @@
     <Compile Include="Concrete\EntityFramework\Mappings\ProductMap.cs" />
     <Compile Include="Concrete\EntityFramework\Mappings\ProductMovementMap.cs" />
     <Compile Include="Concrete\EntityFramework\Mappings\ProductTypeMap.cs" />
+    <Compile Include="Concrete\EntityFramework\Mappings\RoleMap.cs" />
+    <Compile Include="Concrete\EntityFramework\Mappings\UserMap.cs" />
+    <Compile Include="Concrete\EntityFramework\Mappings\UserRoleMap.cs" />
     <Compile Include="Migrations\202004041815248_conigure1.cs" />
     <Compile Include="Migrations\202004041815248_conigure1.designer.cs">
       <DependentUpon>202004041815248_conigure1.cs</DependentUpon>
@@ -91,6 +100,10 @@
     <Compile Include="Migrations\202004132128038_configure5.cs" />
     <Compile Include="Migrations\202004132128038_configure5.designer.cs">
       <DependentUpon>202004132128038_configure5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004272311145_configure7.cs" />
+    <Compile Include="Migrations\202004272311145_configure7.designer.cs">
+      <DependentUpon>202004272311145_configure7.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004132128038_configure5.resx">
       <DependentUpon>202004132128038_configure5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004272311145_configure7.resx">
+      <DependentUpon>202004272311145_configure7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

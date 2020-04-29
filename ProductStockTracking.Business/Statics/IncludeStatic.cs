@@ -21,5 +21,11 @@ namespace ProductStockTracking.Business.Statics
 
             c=>c.Product,
         };
+
+        public static Expression<Func<UserRole, object>>[] IncludeUserRole = {
+
+            c=>c.Role,
+            c=>c.User,
+        };
     }
 }

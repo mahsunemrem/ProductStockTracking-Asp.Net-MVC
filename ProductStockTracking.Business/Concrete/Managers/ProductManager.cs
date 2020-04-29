@@ -1,6 +1,10 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
 using ProductStockTracking.Business.Statics;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -24,7 +28,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
             _productDal = productDal;
             _productMovementService= productMovementService;
         }
-
+        [FluentValidationAspect(typeof(ProductValidator))]
+       
         public IResult Add(Product product)
         {
             try
@@ -124,7 +129,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<List<ProductListwithProductMovementsViewModel>>(ex.Message);
             }
         }
-
+        [FluentValidationAspect(typeof(ProductBarcodeValidator))]
+      
         public IResult Update(Product product)
         {
             try

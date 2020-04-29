@@ -1,5 +1,10 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Business.ValidationRules.FluentValidation;
+using ProductStockTracking.Core.Aspects.Postsharp.AuthorizationAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.CacheAspects;
+using ProductStockTracking.Core.Aspects.Postsharp.ValidationAspects;
+using ProductStockTracking.Core.CrossCuttingConcerns.Caching.Microsoft;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -12,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
+    [SecuredOperation(Roles = "Admin,Editor,Student")]
     public class PhoneSaleManager : IPhoneSaleService
     {
         private readonly IPhoneSaleDal _phoneSaleDal;
@@ -22,7 +28,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
             _phoneSaleDal = phoneSaleDal;
             _phoneService = phoneService;
         }
-
+        [FluentValidationAspect(typeof(PhoneSaleValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Add(PhoneSale phoneSale)
         {
             try
@@ -64,7 +71,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<PhoneSale>(ex.Message);
             }
         }
-
+        [CacheAspect(typeof(MemoryCacheManager))]
         public IDataResult<List<PhoneSale>> GetList(Expression<Func<PhoneSale, bool>> filter = null)
         {
             try
@@ -77,7 +84,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
                 return new ErrorDataResult<List<PhoneSale>>(ex.Message);
             }
         }
-
+        [FluentValidationAspect(typeof(PhoneSaleValidator))]
+        [CacheRemoveAspect("", typeof(MemoryCacheManager))]
         public IResult Update(PhoneSale phoneSale)
         {
             try
