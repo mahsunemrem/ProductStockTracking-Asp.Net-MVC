@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ProductStockTracking.MvcWebUI.Controllers
 {
+    [Authorize]
     public class PhoneController : Controller
     {
 

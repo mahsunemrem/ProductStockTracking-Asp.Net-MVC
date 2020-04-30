@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductStockTracking.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,5 +73,9 @@ namespace ProductStockTracking.Business.Contants
         public static string ProductTypeUpdated = "Ürün tipi güncellendi";
 
         public static string ProductNotHasBarcode = "Bu barkoda ait ürün bulunamadı";
+
+        public static string UserStateInActive = "Kullanıcı hesabınız aktif değil lutfen yetkili kişi ile iletişime geciniz.";
+
+        public static string UserIsNull = "Kullanıcı Adı veya Şifre Yanlış !";
     }
 }

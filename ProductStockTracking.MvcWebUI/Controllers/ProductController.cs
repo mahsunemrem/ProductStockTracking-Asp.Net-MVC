@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace ProductStockTracking.MvcWebUI.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

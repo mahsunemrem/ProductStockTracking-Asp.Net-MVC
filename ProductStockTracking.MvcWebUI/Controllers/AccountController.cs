@@ -44,9 +44,11 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             //_userService.Add(saveuser);
             //_roleService.Add(saverole);
 
-            //_userRoleService.Add(new Entities.Concrete.UserRole() {RoleId=1,UserId=1, });
+            //_userRoleService.Add(new Entities.Concrete.UserRole() { RoleId = 1, UserId = 1, });
 
-            var user = _userService.GetByUserNameAndPassword(model.Username, model.Password).Data;
+            var result = _userService.GetByUserNameAndPassword(model.Username, model.Password);
+
+            var user =result.Data ;
             if (user != null)
             {
                 AuthenticationHelper.CreateAuthCookie(
@@ -58,7 +60,9 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 user.FirstName,
                 user.LastName);
                 return Redirect("/Home/Index");
-            }          
+            }
+
+            TempData["Message"] = result.Message;
 
             return View();
         }

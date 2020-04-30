@@ -17,5 +17,7 @@ namespace ProductStockTracking.Business.Abstract
         IResult Update(User user);
         IResult Delete(User user);
         IDataResult<User> GetByUserNameAndPassword(string userName, string password);
+
+        IDataResult<User> UserIsActive(User user);
     }
 }

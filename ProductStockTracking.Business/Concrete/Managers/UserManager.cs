@@ -1,4 +1,6 @@
 ﻿using ProductStockTracking.Business.Abstract;
+using ProductStockTracking.Business.Contants;
+using ProductStockTracking.Core.Utilities.Business;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
@@ -44,7 +46,27 @@ namespace ProductStockTracking.Business.Concrete.Managers
 
         public IDataResult<User> GetByUserNameAndPassword(string userName, string password)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.UserName == userName & u.Password == password));
+            try
+            {
+                var user = _userDal.Get(u => u.UserName == userName & u.Password == password);
+
+                var result = BusinessRules.Run(UserIsActive(user));
+
+                if (result!=null && !result.Success)
+                {
+                    return (IDataResult<User>)result;
+                }
+
+                return new SuccessDataResult<User>(user);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<User>(null,ex.Message);
+            }
+
+            
+
+            
         }
 
         public IDataResult<List<User>> GetList(Expression<Func<User, bool>> filter = null)
@@ -57,6 +79,24 @@ namespace ProductStockTracking.Business.Concrete.Managers
             _userDal.Update(user);
 
             return new SuccessResult();
+        }
+
+        public IDataResult<User> UserIsActive(User user)
+        {
+            if (user!=null)
+            {
+                if (user.State)
+                    return new SuccessDataResult<User>(user);
+
+                else
+                {
+                    return new ErrorDataResult<User>(Messages.UserStateInActive);
+                }
+               
+            }
+            
+            return new ErrorDataResult<User>(Messages.UserIsNull);
+          
         }
     }
 }
