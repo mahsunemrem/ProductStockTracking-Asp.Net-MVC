@@ -27,7 +27,7 @@ namespace ProductStockTracking.MvcWebUI
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(new BusinessModule(), new StartupTaskModule()));
-            GlobalFilters.Filters.Add(new HandleErrorAttribute());
+            //GlobalFilters.Filters.Add(new HandleErrorAttribute());
             FluentValidationModelValidatorProvider.Configure(provider =>
             {
                 provider.ValidatorFactory = new NinjectValidationFactory(new ValidationModule());

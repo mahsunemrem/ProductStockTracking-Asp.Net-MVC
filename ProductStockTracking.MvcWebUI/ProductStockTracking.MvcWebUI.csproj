@@ -1949,6 +1949,8 @@
     <Content Include="Views\Admin\AddUser.cshtml" />
     <Content Include="Views\Admin\UpdateUser.cshtml" />
     <Content Include="Views\Admin\UserRoleOperations.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

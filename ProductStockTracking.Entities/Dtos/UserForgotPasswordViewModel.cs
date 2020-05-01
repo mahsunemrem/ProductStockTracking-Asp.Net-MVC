@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace ProductStockTracking.Entities.Dtos
 {
-    public class UserLoginViewModel:IDto
+    public class UserForgotPasswordViewModel : IDto
     {
-        public string Username { get; set; }
         public string Password { get; set; }
-
-        public bool RememberMe { get; set; }
+        public string AgainPasswword { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace ProductStockTracking.MvcWebUI.Filters
             {
                 
                 ViewData = new ViewDataDictionary(filterContext.Controller.ViewData)
+               
             };
 
           

@@ -33,15 +33,15 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UserLoginViewModel model)
+        public ActionResult Login(UserLoginViewModel model )
         {
             FormsAuthentication.SignOut();
             if (HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName] != null)
                 HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
 
-            //var saveuser = new Entities.Concrete.User() { FirstName = "Mahsun", LastName = "Emrem", Email = "mahsunemrem@gmail.com", Password = "mahsun", UserName = "mahsun",State=true };
+            var saveuser = new Entities.Concrete.User() { FirstName = "Mahsun", LastName = "Emrem", Email = "mahsunemrem@gmail.com", Password = "mahsun", UserName = "mahsun",State=true ,ForgotEmailId=Guid.NewGuid() };
             //var saverole = new Entities.Concrete.Role() { Name = "Admin" };
-            //_userService.Add(saveuser);
+            _userService.Add(saveuser);
             //_roleService.Add(saverole);
 
             //_userRoleService.Add(new Entities.Concrete.UserRole() { RoleId = 1, UserId = 1, });
@@ -56,7 +56,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 user.Email,
                 DateTime.Now.AddDays(15),
                 _userRoleService.GetList(c => c.UserId== user.Id).Data.Select(u => u.Role.Name).ToArray(),
-                false,
+                model.RememberMe,
                 user.FirstName,
                 user.LastName);
                 return Redirect("/Home/Index");
@@ -75,6 +75,22 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [HttpGet]
+        public ActionResult ForgotPassword(string uniqueId)
+        {
+            var result=_userService.ExistEmailUniqueCode(uniqueId);
+
+
+            return View(new UserForgotPasswordViewModel());
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(UserForgotPasswordViewModel model)
+        {
+
+            
+
+            return View();
+        }
         public ActionResult Error()
         {
 

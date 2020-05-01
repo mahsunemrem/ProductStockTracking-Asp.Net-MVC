@@ -1,6 +1,7 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.Entities.Concrete;
+using ProductStockTracking.MvcWebUI.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,22 +47,41 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+      
         public ActionResult AddPhone(Phone model)
         {
 
-            IResult result;
-            if (model.Id == 0)
-                result = _phoneService.Add(model);
-            else
-                result = _phoneService.Update(model);
+            // özel validation kullandıysan eğer try catch bas !!!!!!!!!!!!!
+            try
+            {
+                IResult result;
+                if (model.Id == 0)
+                    result = _phoneService.Add(model);
+                else
+                    result = _phoneService.Update(model);
 
-            if (result.Success)
-                return RedirectToAction("/PhoneList");
+                if (result.Success)
+                    return RedirectToAction("/PhoneList");
 
-            ViewBag.ErrorMessage = result.Message;
+                ViewBag.Message = result.Message;
 
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+
+                var a = e.Message.Trim().Replace("\n", " ");
+
+                a =a.Replace("\r", " ");
+
+
+                ViewBag.Message =a ;
+
+
+                return View(model); 
+            }
+            
         }
 
 

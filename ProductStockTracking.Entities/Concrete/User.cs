@@ -16,6 +16,8 @@ namespace ProductStockTracking.Entities.Concrete
         public string FirstName { get; set; }
         public string Email { get; set; }
         public bool State { get; set; }
+        public Guid ForgotEmailId { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        
     }
 }

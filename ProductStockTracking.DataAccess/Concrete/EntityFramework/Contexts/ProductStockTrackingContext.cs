@@ -10,9 +10,11 @@ namespace ProductStockTracking.DataAccess.Concrete.EntityFramework.Contexts
 {
     public class ProductStockTrackingContext : DbContext
     {
+        
         public ProductStockTrackingContext() : base("cnn")
         {
-           // Database.SetInitializer<NorthwindContext>(null); //migration yapma yani gidip veritabanı oluşturma hazır var !.
+           
+            // Database.SetInitializer<NorthwindContext>(null); //migration yapma yani gidip veritabanı oluşturma hazır var !.
         }
 
         public DbSet<FaultyPhone> FaultyPhones { get; set; }

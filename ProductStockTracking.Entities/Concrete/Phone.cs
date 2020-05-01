@@ -1,4 +1,5 @@
 ﻿using ProductStockTracking.Core.Entities;
+using ProductStockTracking.Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using static ProductStockTracking.Entities.Concrete.Enums;
 
 namespace ProductStockTracking.Entities.Concrete
 {
-    public class Phone : IEntity
+    public class Phone : Entity
     {
         public int Id { get; set; }
         public string Barcode { get; set; }

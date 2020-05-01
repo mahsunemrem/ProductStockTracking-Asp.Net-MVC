@@ -55,6 +55,7 @@
     <Compile Include="Concrete\User.cs" />
     <Compile Include="Concrete\UserRole.cs" />
     <Compile Include="Dtos\ProductListwithProductMovementsViewModel.cs" />
+    <Compile Include="Dtos\UserForgotPasswordViewModel.cs" />
     <Compile Include="Dtos\UserLoginViewModel.cs" />
     <Compile Include="Dtos\UserRoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

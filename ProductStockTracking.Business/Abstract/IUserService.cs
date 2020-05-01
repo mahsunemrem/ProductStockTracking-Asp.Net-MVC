@@ -21,5 +21,7 @@ namespace ProductStockTracking.Business.Abstract
         IDataResult<User> UserIsActive(User user);
 
         string CreatePasswordHash(string password);
+
+        IResult ExistEmailUniqueCode(string uniqueCode);
     }
 }

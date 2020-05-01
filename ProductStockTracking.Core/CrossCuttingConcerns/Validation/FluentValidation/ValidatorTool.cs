@@ -11,6 +11,7 @@ namespace ProductStockTracking.Core.CrossCuttingConcerns.Validation.FluentValida
             if (result.Errors.Count > 0)
             {
                 throw new ValidationException(result.Errors);
+               
             }
 
         }

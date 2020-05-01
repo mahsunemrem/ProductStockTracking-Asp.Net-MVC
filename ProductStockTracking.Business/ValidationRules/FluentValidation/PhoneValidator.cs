@@ -17,7 +17,7 @@ namespace ProductStockTracking.Business.ValidationRules.FluentValidation
             RuleFor(m => m.OldPhoneOwnersName).NotEmpty().WithMessage("Adı alanı boş geçilemez");
             RuleFor(m => m.OldPhoneOwnersNo).NotEmpty().WithMessage("No boş geçilemez");
             RuleFor(m => m.ReceivedPrice).GreaterThan(0).WithMessage("Fiyat alanı boş geçilemez");
-            RuleFor(m => m.BrandModel).Must(StartWithA);
+            RuleFor(m => m.BrandModel).Must(StartWithA).WithMessage("Fiyat alanı boş geçilemez");
 
 
 

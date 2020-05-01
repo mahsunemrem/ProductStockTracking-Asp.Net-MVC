@@ -33,6 +33,8 @@ namespace ProductStockTracking.Business.Concrete.Managers
             try
             {
                 //ValidatorTool.FluentVAlidate(new PhoneValidator(), phone);
+
+                phone.WhoAdded = System.Threading.Thread.CurrentPrincipal.Identity.Name;
                 _phoneDal.Add(phone);
                 return new SuccessResult(Messages.PhoneAdded);
             }

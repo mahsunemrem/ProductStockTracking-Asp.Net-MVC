@@ -101,6 +101,58 @@ namespace ProductStockTracking.Business.Concrete.Managers
           
         }
 
+        public IResult SendForgotPasswordEmail(string email)
+        {
+
+            try
+            {
+                var result = BusinessRules.Run(ExistEmail(email));
+
+                if (result != null && !result.Success)
+                {
+                    return (ErrorResult)result;
+                }
+                var user = _userDal.Get(c => c.Email == email);
+
+                SMTP.SendEmailForgotPassword(email, user.UserName, "");
+
+                return new SuccessResult();
+            }
+            catch (Exception e)
+            {
+
+                return new ErrorResult(e.Message);
+            }
+           
+        }
+
+        public IResult ExistEmailUniqueCode(string uniqueCode)
+        {
+            if (String.IsNullOrEmpty(uniqueCode))
+            {
+                return new ErrorResult();
+            }
+
+            var guid = Guid.Parse(uniqueCode);
+            var user = _userDal.Get(c => c.ForgotEmailId == guid);
+            if (user == null)
+                return new ErrorResult();
+
+            return new SuccessResult();
+        }
+
+
+        public IResult ExistEmail(string email)
+        {
+            var user=_userDal.Get(c => c.Email == email);
+            if (user==null)           
+                return new ErrorResult();
+            
+
+            return new SuccessResult();
+        }
+
+
         public string CreatePasswordHash(string password)
         {
 

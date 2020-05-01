@@ -27,6 +27,9 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             return View();
         }
 
+
+        #region user operations
+        
         public ActionResult Users()
         {
             var result = _userService.GetList();
@@ -91,11 +94,11 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         {
             return View();
         }
-
+        #endregion user operations
 
         #region User-Region Operations
 
-        #endregion User-Region Operations
+
         public ActionResult UserRoleOperations()
         {       
 
@@ -159,5 +162,6 @@ namespace ProductStockTracking.MvcWebUI.Controllers
 
         }
 
+        #endregion User-Region Operations
     }
 }
