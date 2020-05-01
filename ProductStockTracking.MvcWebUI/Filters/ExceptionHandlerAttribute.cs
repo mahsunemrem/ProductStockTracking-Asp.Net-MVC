@@ -18,8 +18,11 @@ namespace ProductStockTracking.MvcWebUI.Filters
 
             filterContext.Result = new ViewResult
             {
+                
                 ViewData = new ViewDataDictionary(filterContext.Controller.ViewData)
             };
+
+          
         }
     }
 }

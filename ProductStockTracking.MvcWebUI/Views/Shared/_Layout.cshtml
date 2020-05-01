@@ -210,6 +210,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </li>
 
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-rocket-1 "></i><span class="kt-menu__link-text">Admin</span><span class="kt-menu__link-badge"></span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("Users","Admin")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Kullanıcı Listesi</span></a></li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("AddUser","Admin")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Kullanıcı Ekle</span></a></li>
+                                        <li class="kt-menu__item " aria-haspopup="true"><a href="@Url.Action("UserRoleOperations","Admin")" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Yetki İşlemleri</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
 
                         </ul>
                     </div>
@@ -481,7 +493,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Theme/UI/assets/plugins/general/inputmask/dist/inputmask/inputmask.date.extensions.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/nouislider/distribute/nouislider.js" type="text/javascript"></script>
-    <script src="~/Theme/UI/assets/plugins/general/owl.carousel/dist/owl.carousel.js" type="text/javascript"></script>
+    @*<script src="~/Theme/UI/assets/plugins/general/owl.carousel/dist/owl.carousel.js" type="text/javascript"></script>*@
     <script src="~/Theme/UI/assets/plugins/general/autosize/dist/autosize.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/clipboard/dist/clipboard.min.js" type="text/javascript"></script>
     <script src="~/Theme/UI/assets/plugins/general/dropzone/dist/dropzone.js" type="text/javascript"></script>

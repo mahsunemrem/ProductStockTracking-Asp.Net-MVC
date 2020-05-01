@@ -27,8 +27,10 @@ namespace ProductStockTracking.Core.Aspects.Postsharp.AuthorizationAspects
 
             if (isAuthorized == false)
             {
+
+                //throw new SecurityException("You are not authorized!");
                 
-                throw new SecurityException("You are not authorized!");
+                throw new Exception("You are not authorized!");  
             }
 
         }

@@ -39,14 +39,14 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             if (HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName] != null)
                 HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
 
-            //var saveuser = new Entities.Concrete.User() { FirstName = "Mahsun", LastName = "Emrem", Email = "mahsunemrem@gmail.com", Password = "mahsun", UserName = "mahsun" };
+            //var saveuser = new Entities.Concrete.User() { FirstName = "Mahsun", LastName = "Emrem", Email = "mahsunemrem@gmail.com", Password = "mahsun", UserName = "mahsun",State=true };
             //var saverole = new Entities.Concrete.Role() { Name = "Admin" };
             //_userService.Add(saveuser);
             //_roleService.Add(saverole);
 
             //_userRoleService.Add(new Entities.Concrete.UserRole() { RoleId = 1, UserId = 1, });
 
-            var result = _userService.GetByUserNameAndPassword(model.Username, model.Password);
+            var result = _userService.GetByUserNameAndPassword(model.Username,model.Password);
 
             var user =result.Data ;
             if (user != null)
@@ -62,7 +62,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 return Redirect("/Home/Index");
             }
 
-            TempData["Message"] = result.Message;
+            ViewBag.Message = result.Message;
 
             return View();
         }
@@ -73,6 +73,15 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                 HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
 
             return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult Error()
+        {
+
+            //var Message = Server.GetLastError();
+
+            //ViewBag.Message = Message.Message;
+            return View();
         }
     }
 }

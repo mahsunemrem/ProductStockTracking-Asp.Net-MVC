@@ -46,29 +46,21 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddPhone(Phone model)        
+        public ActionResult AddPhone(Phone model)
         {
-            try
-            {
-                IResult result;
-                if (model.Id == 0)
-                    result = _phoneService.Add(model);
-                else
-                    result = _phoneService.Update(model);
 
-                if (result.Success)
-                    return RedirectToAction("/PhoneList");
+            IResult result;
+            if (model.Id == 0)
+                result = _phoneService.Add(model);
+            else
+                result = _phoneService.Update(model);
 
-                ViewBag.ErrorMessage = result.Message;
-            }
-            catch (Exception e)
-            {
-             
+            if (result.Success)
+                return RedirectToAction("/PhoneList");
 
-                ViewBag.ErrorMessage =(string) e.Message;
-                return View(model);
-            }
-            
+            ViewBag.ErrorMessage = result.Message;
+
+
             return View(model);
         }
 
@@ -109,7 +101,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
             {
                 var result = _phoneSaleService.GetById(phoneId);
 
-                string[] arrayData = { result.Data.Barcode, result.Data.NewPhoneOwnersName, result.Data.NewPhoneOwnersNo.ToString(),result.Data.DeliveryPrice.ToString() ,result.Data.DeliveryDate.ToString("dd.MM.yyyy") };
+                string[] arrayData = { result.Data.Barcode, result.Data.NewPhoneOwnersName, result.Data.NewPhoneOwnersNo.ToString(), result.Data.DeliveryPrice.ToString(), result.Data.DeliveryDate.ToString("dd.MM.yyyy") };
 
                 if (result.Success)
                 {
@@ -122,7 +114,7 @@ namespace ProductStockTracking.MvcWebUI.Controllers
                     var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
                     return Json(resStr);
                 }
-                
+
             }
             catch (Exception)
             {

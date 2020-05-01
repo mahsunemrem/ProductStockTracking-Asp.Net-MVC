@@ -19,5 +19,7 @@ namespace ProductStockTracking.Business.Abstract
         IDataResult<User> GetByUserNameAndPassword(string userName, string password);
 
         IDataResult<User> UserIsActive(User user);
+
+        string CreatePasswordHash(string password);
     }
 }

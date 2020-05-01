@@ -27,5 +27,7 @@ namespace ProductStockTracking.Business.Statics
             c=>c.Role,
             c=>c.User,
         };
+
+
     }
 }

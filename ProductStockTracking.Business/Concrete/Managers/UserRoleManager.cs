@@ -43,7 +43,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
 
         public IDataResult<List<UserRole>> GetList(Expression<Func<UserRole, bool>> filter = null)
         {
-            return new SuccessDataResult<List<UserRole>>(_userRoleDal.GetList(null, IncludeStatic.IncludeUserRole));
+            return new SuccessDataResult<List<UserRole>>(_userRoleDal.GetList(filter, IncludeStatic.IncludeUserRole));
         }
 
         public IResult Update(UserRole UserRole)

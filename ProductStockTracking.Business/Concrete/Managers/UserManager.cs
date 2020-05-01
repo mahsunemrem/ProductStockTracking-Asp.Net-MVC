@@ -6,10 +6,9 @@ using ProductStockTracking.DataAccess.Abstract;
 using ProductStockTracking.Entities.Concrete;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductStockTracking.Business.Concrete.Managers
 {
@@ -27,6 +26,7 @@ namespace ProductStockTracking.Business.Concrete.Managers
 
         public IResult Add(User user)
         {
+            user.Password = CreatePasswordHash(user.Password);
             _userDal.Add(user);
 
             return new SuccessResult();
@@ -48,7 +48,9 @@ namespace ProductStockTracking.Business.Concrete.Managers
         {
             try
             {
-                var user = _userDal.Get(u => u.UserName == userName & u.Password == password);
+                var hashPassword = CreatePasswordHash(password);
+
+                var user = _userDal.Get(u => u.UserName == userName & u.Password == hashPassword);
 
                 var result = BusinessRules.Run(UserIsActive(user));
 
@@ -97,6 +99,29 @@ namespace ProductStockTracking.Business.Concrete.Managers
             
             return new ErrorDataResult<User>(Messages.UserIsNull);
           
+        }
+
+        public string CreatePasswordHash(string password)
+        {
+
+            MD5 md5 = new MD5CryptoServiceProvider();
+
+            //metnin boyutuna göre hash hesaplar
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(password));
+
+            //hesapladıktan sonra hashi alır
+            byte[] result = md5.Hash;
+
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+            {
+                //her baytı 2 hexadecimal hane olarak değiştirir
+                strBuilder.Append(result[i].ToString("x2"));
+            }
+
+
+            return strBuilder.ToString();
+
         }
     }
 }
