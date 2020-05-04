@@ -1,5 +1,6 @@
 ﻿using ProductStockTracking.Business.Abstract;
 using ProductStockTracking.Core.CrossCuttingConcerns.Security.Web;
+using ProductStockTracking.Core.Utilities.Results;
 using ProductStockTracking.Entities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -29,19 +30,21 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(UserLoginViewModel model )
         {
+            TempData["Message"] = null;
             FormsAuthentication.SignOut();
             if (HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName] != null)
                 HttpContext.Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
 
-            var saveuser = new Entities.Concrete.User() { FirstName = "Mahsun", LastName = "Emrem", Email = "mahsunemrem@gmail.com", Password = "mahsun", UserName = "mahsun",State=true ,ForgotEmailId=Guid.NewGuid() };
+            //var saveuser = new Entities.Concrete.User() { FirstName = "Mahsun", LastName = "Emrem", Email = "mahsunemrem@gmail.com", Password = "mahsun", UserName = "mahsun",State=true ,ForgotEmailId=Guid.NewGuid() };
             //var saverole = new Entities.Concrete.Role() { Name = "Admin" };
-            _userService.Add(saveuser);
+            //_userService.Add(saveuser);
             //_roleService.Add(saverole);
 
             //_userRoleService.Add(new Entities.Concrete.UserRole() { RoleId = 1, UserId = 1, });
@@ -79,17 +82,67 @@ namespace ProductStockTracking.MvcWebUI.Controllers
         public ActionResult ForgotPassword(string uniqueId)
         {
             var result=_userService.ExistEmailUniqueCode(uniqueId);
+            if (result.Success)
+            {
+                var user = new UserForgotPasswordViewModel() { UniqueId = Guid.Parse(uniqueId) };
+                return View(user);
+            }
 
+            throw new Exception();
 
-            return View(new UserForgotPasswordViewModel());
         }
         [HttpPost]
         public ActionResult ForgotPassword(UserForgotPasswordViewModel model)
         {
 
+
+            if (model.Password!=model.AgainPasswword || String.IsNullOrEmpty(model.Password) || String.IsNullOrEmpty(model.AgainPasswword))
+            {
+                ViewBag.Message = "Lütfen Şifreleri doğru bir şekilde giriniz ";
+                return View(model);
+            }
+            var user = _userService.GetList(c => c.ForgotEmailId == model.UniqueId).Data.FirstOrDefault();
+            user.Password = model.Password;
+            var result =_userService.UpdatePassword(user);
+            if (result.Success)
+            {
+                TempData["NewPasswordMessage"] = "Şifreniz başarıyla değiştirildi";
+                return RedirectToAction("Login");
+            }
+
+            ViewBag.Message = "Mail gönderirken hata oluştu";
+            return View(model);
+
+        }
+
+        public ActionResult SendForgotPasswordEmail(string email)
+        {
             
 
-            return View();
+            try
+            {
+                var result =_userService.SendForgotPasswordEmail(email);
+              
+                if (result.Success)
+                {
+                    var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new SuccessResult());
+
+                    return Json(resStr);
+                }
+
+                else
+                {
+                    var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                  
+                    return Json(resStr);
+                }
+
+            }
+            catch (Exception)
+            {
+                var resStr = Newtonsoft.Json.JsonConvert.SerializeObject(new ErrorResult("Email gönderirken hata oluştu."));
+                return Json(resStr);
+            }
         }
         public ActionResult Error()
         {

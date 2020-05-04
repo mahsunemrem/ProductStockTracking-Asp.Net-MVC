@@ -23,5 +23,8 @@ namespace ProductStockTracking.Business.Abstract
         string CreatePasswordHash(string password);
 
         IResult ExistEmailUniqueCode(string uniqueCode);
+        IResult UpdatePassword(User user);
+        IResult ExistEmail(string email);
+        IResult SendForgotPasswordEmail(string email);
     }
 }

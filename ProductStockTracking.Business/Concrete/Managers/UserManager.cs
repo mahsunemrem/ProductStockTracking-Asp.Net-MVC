@@ -83,6 +83,15 @@ namespace ProductStockTracking.Business.Concrete.Managers
             return new SuccessResult();
         }
 
+        public IResult UpdatePassword(User user)
+        {
+            user.Password = CreatePasswordHash(user.Password);
+            user.ForgotEmailId = Guid.NewGuid();
+            _userDal.Update(user);
+
+            return new SuccessResult();
+        }
+
         public IDataResult<User> UserIsActive(User user)
         {
             if (user!=null)
@@ -110,11 +119,12 @@ namespace ProductStockTracking.Business.Concrete.Managers
 
                 if (result != null && !result.Success)
                 {
-                    return (ErrorResult)result;
+      
+                    return new ErrorResult("böyle bir email yok");
                 }
                 var user = _userDal.Get(c => c.Email == email);
 
-                SMTP.SendEmailForgotPassword(email, user.UserName, "");
+                SMTP.SendEmailForgotPassword(email, user.UserName, "https://localhost:44364/Account/ForgotPassword"+ "?uniqueId="+user.ForgotEmailId.ToString());
 
                 return new SuccessResult();
             }
